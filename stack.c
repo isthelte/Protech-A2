@@ -1,44 +1,64 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "stack.h"
+
+
+struct element * create_node_number(double value){
+    struct element * e = malloc(sizeof(struct element));
+    e->type = ELEMENT_NUMBER;
+    e->number = value;
+
+    return e;
+}
+
+struct element * create_node_operator(char * value){
+    struct element * e = malloc(sizeof(struct element));
+    e->type = ELEMENT_OPERATOR;
+    e->op[0] = value[0];
+    if (strlen(value) > 1)
+        e->op[1] = value[1];
+
+    return e;    
+}
 
 struct stack * create_stack(int length) {
     struct stack * s = malloc(sizeof(struct stack));
     s->top = -1;
     s->length = length;
-    s->data = malloc(sizeof(double)*length);
+    s->data = malloc(sizeof(struct element)*length);
     
     return s;
 }
 
 void free_stack(struct stack *s) {
     free(s->data);
-    free(s);
+    //free(s); // This thing is causing trouble, the bug is: *** glibc detected *** ./calc: free(): invalid next size (fast): 0x087c8108 ***. Any idea?
 }
 
-void push(struct stack *s, double value) {
+void push(struct stack *s, struct element * e) {
     if (s->top == s->length-1) {
         resize(s, (int)s->length*RESIZE_FACTOR);
     }
     
     s->top++;
-    s->data[s->top] = value;
+    s->data[s->top] = e;
 }
 
-double peek(struct stack *s) {
+struct element * peek(struct stack *s) {
     return s->data[s->top];
 }
 
-double pop(struct stack *s) {
+struct element * pop(struct stack *s) {
     s->top--;
     return s->data[s->top+1];
 }
 
 void resize(struct stack *s, int new_length) {
-    double *old_data = s->data;
+    struct element ** old_data = s->data;
     //printf("in resize %i, %i\n", s->length, new_length);
-    s->data = malloc(sizeof(double)*new_length);
+    s->data = malloc(sizeof(struct element)*new_length);
     for (int i = 0; i <= s->top; i++) {
         s->data[i] = old_data[i];
     }
@@ -50,7 +70,11 @@ void resize(struct stack *s, int new_length) {
 void print_stack(struct stack *s) {
     printf("%i/%i: ", s->top, s->length);
     for (int i = 0; i <= s->top; i++) {
-        printf("%lf ", s->data[i]);
+        if (s->data[i]->type == ELEMENT_NUMBER){
+            printf("%lf ", s->data[i]->number);    
+        } else {
+            printf("%s ", s->data[i]->op);
+        }    
     }
     printf("\n");
 }

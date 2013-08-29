@@ -4,6 +4,7 @@
 
 #include "read_exp.h"
 #include "rpn.h"
+#include "in.h"
 #include <stdbool.h>
 #include <string.h>
 
@@ -88,7 +89,7 @@ int main (int argc, char **argv) {
 
         //Print out the ouput
         if (strcmp(input,"\0") != 0){
-            printf("%lf\n", rpn_eval(input));
+            printf("%lf\n", (isRPN) ? rpn_eval(input) : in_eval(input));
         }
 
         //"Clean" the string by hand (P/s: IS THERE NO OTHER WAY? #$%#$@#$@#$#@)

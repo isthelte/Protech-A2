@@ -32,32 +32,32 @@ double in_eval(char *exp) {
         if (0.00 < sscanf(token, "%lf", &value)) {
             //printf("number: %s\n", token);
             // push the int on the stack
-            push(s, value);
+            push(s, create_node_number(value));
         } else {
             // the token is not an int, therefore it must be an operator (hopefully)
             
-            //Edit: Only pop and calculate the value if we reach a closing brace -> )
+            //Edit: Only pop and calculate the value if we reach a closing bracket -> )
             if (token[0] == ')'){
                 
                 // pop the right operand
-                right = pop(s);
+                right = pop(s)->number;
                 //pop the operator
-                operator_found = pop(s);
+                operator_found = pop(s)->op;
                 //pop the left operand
-                left = pop(s);
-                //pop the open brace
+                left = pop(s)->number;
+                //pop the open bracket -> throw it away
                 pop(s);
 
                 // evaluate the operator on left and right
                 //printf("operator: %s\n", token);
                 value = operations[find_operation(operator_found)](left,right);
                 // push the result back on the stack
-                push(s, value);    
+                push(s, create_node_number(value));    
 
             } else {
 
                 //Push back the value in if it is not a closing brace
-                
+                push(s, create_node_operator(token));                
 
             }
 
@@ -71,7 +71,7 @@ double in_eval(char *exp) {
         //print_stack(s);
     }    
     
-    value = pop(s);
+    value = pop(s)->number;
 
     free(copy);
     free_stack(s);
