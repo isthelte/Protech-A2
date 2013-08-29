@@ -2,18 +2,18 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "rpn.h"
+#include "in.h"
 #include "stack.h"
 #include "operators.h"
 
 //This method will evaluate the expression in RPN and return the result
-double rpn_eval(char *exp) {
+double in_eval(char *exp) {
     // create a stack based on the length of the expression
     // this is just a guess of the space we are going to need
     // the stack will automatically increase its size if necessary
     int exp_length = strlen(exp);
     struct stack *s = create_stack(exp_length/2);
-    char *token, *copy;
+    char *token, *copy, *operator_found;
     double value, left, right;
     
     // we need to make a copy of the expression to not "destroy" it while
@@ -35,15 +35,33 @@ double rpn_eval(char *exp) {
             push(s, value);
         } else {
             // the token is not an int, therefore it must be an operator (hopefully)
-            //printf("operator: %s\n", token);
-            // pop the right and left operands
-            right = pop(s);
-            left = pop(s);
-            // evaluate the operator on left and right
-            //printf("operator: %s\n", token);
-            value = operations[find_operation(token)](left,right);
-            // push the result back on the stack
-            push(s, value);            
+            
+            //Edit: Only pop and calculate the value if we reach a closing brace -> )
+            if (token[0] == ')'){
+                
+                // pop the right operand
+                right = pop(s);
+                //pop the operator
+                operator_found = pop(s);
+                //pop the left operand
+                left = pop(s);
+                //pop the open brace
+                pop(s);
+
+                // evaluate the operator on left and right
+                //printf("operator: %s\n", token);
+                value = operations[find_operation(operator_found)](left,right);
+                // push the result back on the stack
+                push(s, value);    
+
+            } else {
+
+                //Push back the value in if it is not a closing brace
+                
+
+            }
+
+                        
         }
 
         // get the next token
