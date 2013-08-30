@@ -41,7 +41,8 @@ double rpn_eval(char *exp) {
             left = pop(s)->number;
             // evaluate the operator on left and right
             //printf("operator: %s\n", token);
-            value = operations[find_operation(token)](left,right);
+            //value = operations[find_operation(token)](left,right);
+            value = execute_operation(token, left, right);
             // push the result back on the stack
             push(s, create_node_number(value));            
         }

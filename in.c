@@ -50,7 +50,8 @@ double in_eval(char *exp) {
 
                 // evaluate the operator on left and right
                 //printf("operator: %s\n", token);
-                value = operations[find_operation(operator_found)](left,right);
+                //value = operations[find_operation(operator_found)](left,right);
+                value = execute_operation(operator_found, left, right);
                 // push the result back on the stack
                 push(s, create_node_number(value));    
 

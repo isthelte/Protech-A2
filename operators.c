@@ -83,8 +83,13 @@ int find_operation(char * operator){
            return i; 
         }
     }   
-
    
     return -1; 
+
+}
+
+double execute_operation(char *operation , double a, double b){
+
+    return operations[find_operation(operation)](a, b);
 
 }

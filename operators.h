@@ -22,9 +22,11 @@ double distance(double a, double b);
 //extern double (* operations[])(double, double) = {add, minus, multiply, divide, maximum, minimum, distance, power};
 //extern char * op_symbols[] = {"+", "-", "*", "/", "#", "_", "||", "**"};
 
-extern double (* operations[])(double, double);
-extern char * op_symbols[];
+//extern double (* operations[])(double, double);
+//extern char * op_symbols[];
 
 int find_operation(char * operator);
+
+double execute_operation(char *operation , double a, double b);
 
 #endif
