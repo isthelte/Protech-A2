@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-Wall -std=c99 #-g -pg
 
-SOURCES = read_exp.c calc.c stack.c rpn.c operators.c in.c
+SOURCES = read_exp.c calc.c stack.c rpn.c operators.c in.c variables_mapping.c
 OBJS = $(patsubst %.c,%.o,$(SOURCES))
 HEADERS = read_exp.h
 EXECS = calc

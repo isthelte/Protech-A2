@@ -17,8 +17,17 @@ struct element * create_node_operator(char * value){
     struct element * e = malloc(sizeof(struct element));
     e->type = ELEMENT_OPERATOR;
     e->op[0] = value[0];
-    if (strlen(value) > 1)
+    if (strlen(value) == 2)
         e->op[1] = value[1];
+    if (strlen(value) > 2){        
+        for (int i = 0; i < strlen(value); ++i)
+        {
+            e->op[i] = value[i];
+        }
+    }
+
+    //Make sure nothing "strange" comes after that
+    e->op[strlen(value)] = '\0';
 
     return e;    
 }

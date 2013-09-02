@@ -1,7 +1,8 @@
 #ifndef VARIABLES_MAPPING
 #define VARIABLES_MAPPING
+#include <stdbool.h>
 
-#define SIZE 3
+#define SIZE 2
 
 struct table {
 	//Create 2 arrays: 1 for storing variable name (string), one for storing variable value
@@ -15,11 +16,11 @@ struct table * createTable();
 
 int find_variable(struct table * t, char * name);
 
-void resize(struct table * t);
+void table_resize(struct table * t);
 
 void add_variable(struct table * t, char * name, double value);
 
-double get_variable(struct table * t, char * name);
+double get_variable(struct table * t, int var_index);
 
 bool edit_variable(struct table * t, char * name, double newValue);
 

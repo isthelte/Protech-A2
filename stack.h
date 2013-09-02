@@ -9,7 +9,7 @@ struct element {
     enum element_type type;              
     union {
         double number;      /**< the number to store in the node */
-        char op[2];         /**< an operator has at most 2 chars */
+        char op[50];         /**< an operator has at most 2 chars. UPDATE: Set to 50 char to include variable name */
     };
 };
 

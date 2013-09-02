@@ -1,6 +1,12 @@
 #ifndef IN
 #define IN
 
-double in_eval(char *exp);
+void createVarList();
+
+double in_eval(char *exp, char ** invalidVar);
+
+int find_var_index(char * name);
+
+double get_var_value(int index);
 
 #endif

@@ -37,6 +37,7 @@ double rpn_eval(char *exp) {
             // the token is not a double, therefore it must be an operator (hopefully)
             //printf("operator: %s\n", token);
             // pop the right and left operands
+
             right = pop(s)->number;
             left = pop(s)->number;
             // evaluate the operator on left and right

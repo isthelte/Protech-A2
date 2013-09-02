@@ -5,6 +5,7 @@
 #include "read_exp.h"
 #include "rpn.h"
 #include "in.h"
+#include "variables_mapping.h"
 #include <stdbool.h>
 #include <string.h>
 
@@ -73,9 +74,11 @@ int main (int argc, char **argv) {
     printf("--------------------------------------\n\n");
 
     int length;
-    char *input = malloc(sizeof(char)*MAX_EXP_LENGTH+1);
+    char *input = malloc(sizeof(char)*MAX_EXP_LENGTH+1);    
+    createVarList();
 
     do { 
+
         //Receive the input
         if (!isBatch){
             printf("s3372765>>>");
@@ -83,13 +86,57 @@ int main (int argc, char **argv) {
        
         length = read_exp(input);
 
+        //Try to 'cut-off' the weird character with ASCII code 13 out of the input
+        //P/s: 13 is the ASCII code of 'carriage return', how the hell can it end up here? Isn't it \n?
+        if (input[strlen(input) - 1] == 13){
+            input[strlen(input) - 1] = '\0';
+        }
+
         if (isEcho){
-            printf("What you inputed is: %s\n", input);     
+            printf("What you input is: %s\n", input);
         }
 
         //Print out the ouput
         if (strcmp(input,"\0") != 0){
-            printf("%lf\n", (isRPN) ? rpn_eval(input) : in_eval(input));
+            if (isRPN){
+                printf("%s = %lf\n", input, rpn_eval(input));
+            } else {                
+                //If we cant find any " " , then there must be a variable there, try to print it out!
+                if (strstr(input, " ") == NULL){
+                    //printf("input is %s(%i)\n", input, strlen(input));
+
+                    //Find if the variable actually exist first
+                    int var_ind = find_var_index(input);
+
+                    //Only return the variable value if we can find the variable
+                    if (var_ind != -1){
+                        printf("%s = %lf\n", input, get_var_value(var_ind));                        
+                    } else { 
+                        //If the variable does not exist, print out a meaningful error mes
+                        printf("Unrecognized variable name '%s'\n", input );
+                    }
+                    
+                } else {
+                    //Create a char* to show the invalid Variable
+                    char * invalidVariable = malloc(sizeof(char)*50);
+                    invalidVariable[0] = '\0';
+
+                    double result = in_eval(input, &invalidVariable);
+
+                    //printf("%s\n", (invalidVariable[0] == '\0') ? "There is no error" : "There is an error" );
+                    //If there is no error, print out the result
+                    if (invalidVariable[0] == '\0'){
+                        printf("%s = %lf\n", input, result);
+                    } else {
+                        //If there is an error, print out the error
+                        printf("Unrecognized variable name '%s'. The evaluation is terminated \n", invalidVariable);
+                    }
+
+                    //Free the string when we're done
+                    //free(invalidVariable); //Commented out because it's causing trouble: *** glibc detected *** ./calc: free(): invalid pointer: 0x0966f364 ***
+                    
+                }                
+            }
         }
 
         //"Clean" the string by hand (P/s: IS THERE NO OTHER WAY? #$%#$@#$@#$#@)
@@ -104,7 +151,7 @@ int main (int argc, char **argv) {
     
     //Print out the exit
     printf("\n--------------------------------------");
-    printf("\nNo input received. This is considered as an exit.\n");
+    printf("\nNo other input received. This is considered as an exit.\n");
     printf("Program exits. Goodbye!!\n");
 
     exit (0);
