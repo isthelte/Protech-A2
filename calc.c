@@ -74,8 +74,14 @@ int main (int argc, char **argv) {
     printf("--------------------------------------\n\n");
 
     int length;
-    char *input = malloc(sizeof(char)*MAX_EXP_LENGTH+1);    
-    createVarList();
+    char *input = malloc(sizeof(char)*MAX_EXP_LENGTH+1); 
+    //Depending on the user's choice, we create the according Varialbe Table
+    if (!isRPN){
+        in_createVarList();    
+    } else {
+        rpn_createVarList();
+    }   
+    
 
     do { 
 
@@ -93,50 +99,67 @@ int main (int argc, char **argv) {
         }
 
         if (isEcho){
-            printf("What you input is: %s\n", input);
+            printf("%s\n", input);
         }
 
         //Print out the ouput
         if (strcmp(input,"\0") != 0){
-            if (isRPN){
-                printf("%s = %lf\n", input, rpn_eval(input));
-            } else {                
-                //If we cant find any " " , then there must be a variable there, try to print it out!
-                if (strstr(input, " ") == NULL){
-                    //printf("input is %s(%i)\n", input, strlen(input));
 
-                    //Find if the variable actually exist first
-                    int var_ind = find_var_index(input);
+            //If we cant find any " " , then there must be a variable there, try to print it out!
+            if (strstr(input, " ") == NULL){
+                //printf("input is %s(%i)\n", input, strlen(input));
 
-                    //Only return the variable value if we can find the variable
-                    if (var_ind != -1){
-                        printf("%s = %lf\n", input, get_var_value(var_ind));                        
-                    } else { 
-                        //If the variable does not exist, print out a meaningful error mes
-                        printf("Unrecognized variable name '%s'\n", input );
-                    }
-                    
+                //Find if the variable actually exist first
+                int var_ind = in_find_var_index(input);
+
+                //Only return the variable value if we can find the variable
+                if (var_ind != -1){
+                    printf("%s = %lf\n", input, in_get_var_value(var_ind));                        
+                } else { 
+                    //If the variable does not exist, print out a meaningful error mes
+                    printf("Unrecognized variable name '%s'\n", input );
+                }
+                
+            } else {
+
+                //Create a char* to show the invalid Variable
+                char * invalidVariable = malloc(sizeof(char)*50);
+                invalidVariable[0] = '\0';
+                //Create a char* to show the invalid Assignment error
+                char * invalidAssignment = malloc(sizeof(char)*50);
+                invalidAssignment[0] = '\0';
+                //Create a double to show the result
+                double result;
+
+                if (isRPN){
+
+                    result = rpn_eval(input, &invalidVariable, &invalidAssignment);
+
+                } else {         
+                
+                    result = in_eval(input, &invalidVariable, &invalidAssignment);
+
+                }
+
+                //printf("%s\n", (invalidVariable[0] == '\0') ? "There is no error" : "There is an error" );
+                //If there is no error, print out the result
+                if (invalidVariable[0] == '\0' && invalidAssignment[0] == '\0'){
+                    printf("%lf\n", result);
                 } else {
-                    //Create a char* to show the invalid Variable
-                    char * invalidVariable = malloc(sizeof(char)*50);
-                    invalidVariable[0] = '\0';
-
-                    double result = in_eval(input, &invalidVariable);
-
-                    //printf("%s\n", (invalidVariable[0] == '\0') ? "There is no error" : "There is an error" );
-                    //If there is no error, print out the result
-                    if (invalidVariable[0] == '\0'){
-                        printf("%s = %lf\n", input, result);
-                    } else {
-                        //If there is an error, print out the error
+                    //If there is an error, print out the error
+                    if (invalidVariable[0] != '\0')
                         printf("Unrecognized variable name '%s'. The evaluation is terminated \n", invalidVariable);
+                    if (invalidAssignment[0] != '\0'){
+                        printf("%s\n", invalidAssignment);
                     }
+                }
 
-                    //Free the string when we're done
-                    //free(invalidVariable); //Commented out because it's causing trouble: *** glibc detected *** ./calc: free(): invalid pointer: 0x0966f364 ***
-                    
-                }                
+                //Free the string when we're done
+                //free(invalidVariable); //Commented out because it's causing trouble: *** glibc detected *** ./calc: free(): invalid pointer: 0x0966f364 ***                                                      
+
             }
+
+            
         }
 
         //"Clean" the string by hand (P/s: IS THERE NO OTHER WAY? #$%#$@#$@#$#@)

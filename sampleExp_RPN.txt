@@ -4,3 +4,19 @@
 4.2 5.2 ** 12.1 ||
 4.4 5.2 || 12.3 / 3.2 +
 2.1 6.4 +
+anotherVar
+myVar 7.7 =
+myVar
+myVar 2.2 5.1 * /
+myVar
+anotherVar 6.4 2.3 / +
+anotherVar myVar =
+anotherVar
+myVar 1.1 =
+myVar
+newVar1 newVar2 myVar = =
+newVar1
+newVar2
+myVar
+1InvalidVar myVar =
+2 myVar =

@@ -94,16 +94,16 @@ double get_variable(struct table * t, int var_index){
 	return t->values[var_index];
 }
 
-bool edit_variable(struct table * t, char * name, double newValue){
+void edit_variable(struct table * t, int var_index, double newValue){
 
-	int var_index = find_variable(t, name);
+	//int var_index = find_variable(t, name);
 	//printf("Found variable %s at index %i\n", name, var_index);
 
-	if(var_index != -1){
-		t->values[var_index] = newValue;
-		return true;
-	}
+	//if(var_index != -1){
+	t->values[var_index] = newValue;
+	//	return true;
+	//}
 
-	return false;
+	//return false;
 	
 }

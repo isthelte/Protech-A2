@@ -11,21 +11,21 @@
 //Create a table to alllocate variables to its values
 struct table * var_List;
 
-void createVarList(){
+void in_createVarList(){
     var_List = createTable();
 }
 
-int find_var_index(char * name){
+int in_find_var_index(char * name){
     return find_variable(var_List, name);
 }
 
-double get_var_value(int index){
+double in_get_var_value(int index){
     //printf("Name is %s\n", name );
     return get_variable(var_List, index);
-} 
+}
 
 //This method will evaluate the expression in RPN and return the result
-double in_eval(char *exp, char ** invalidVar) {
+double in_eval(char *exp, char ** invalidVar, char ** invalidAssignment) {
     // create a stack based on the length of the expression
     // this is just a guess of the space we are going to need
     // the stack will automatically increase its size if necessary
@@ -74,11 +74,11 @@ double in_eval(char *exp, char ** invalidVar) {
                 if (rightEl->type == ELEMENT_NUMBER){
                     right =  rightEl->number;
                 } else {
-                    int var_index = find_var_index(rightEl->op);
+                    int var_index = in_find_var_index(rightEl->op);
 
                     //We can only evaluate the expression if the variable really exists
                     if (var_index != -1){
-                        right = get_var_value(var_index);
+                        right = in_get_var_value(var_index);
                     } else {
                         //If it does not exist, terminate the evaluation an send a signal
                         //That the expression is invalid through the char * invalid Var
@@ -93,18 +93,51 @@ double in_eval(char *exp, char ** invalidVar) {
                 }
                 
                 //pop the operator
-                operator_found = pop(s)->op;
-                
+                operator_found = pop(s)->op;                
 
                 //Determine if the operator_found is an '=' sign or not
-                if (operator_found[0] == '='){
+                if (operator_found[0] == '='){ //If it IS an equal sign
 
                     //pop the variable name
-                    variable_found = pop(s)->op;
+                    struct element * variable = pop(s);
 
-                    //Add that variable to the var_List
-                    add_variable(var_List, variable_found, right);
+                    //We check if this is a variable or a number
+                    if (variable->type == ELEMENT_NUMBER){
+                        //If it is a number, there is no way the assignment can be done
+                        //For example, 8 = 1 does not make sense at all
+                        //Terminate the expression
+                        *invalidAssignment = "Left side of the '=' sign is not a valid variable";
+                        return -1;
+                    } else { // If it is not a number, then there is hope
 
+                        variable_found = variable->op;    
+
+                        //Continue to check if the variable name is valid or not
+                        //If it contains any number from 0 to 9 at the beginning, it is not valid
+                        for (int i = 0; i < 10; ++i)
+                        {
+                            if (variable_found[0] == i){
+                                *invalidAssignment = "A variable name cannot start with a number";
+                                return -1;
+                            }
+                        }
+                        
+                    }
+                    
+                    //Get the left bracket and throw it away;
+                    pop(s);
+
+                    //Check if that variable exists or not
+                    //If it does not, then make a new one 
+                    int variable_index = in_find_var_index(variable_found);
+                    if (variable_index == -1){
+                        //Add that variable to the var_List
+                        add_variable(var_List, variable_found, right);    
+                    } else {
+                        //If it already exist, simply edit the old one
+                        edit_variable(var_List, variable_index, right);
+                    }
+                    
                     value = right;
 
                 } else { //Only evaluate as follow if it is not an '=' sign
@@ -114,13 +147,13 @@ double in_eval(char *exp, char ** invalidVar) {
                     //Make a decision: If it is a number, then just assign the value to left
                     //If it is not, try looking for the variable with that name, and return its value to left
                     if (leftEl->type == ELEMENT_NUMBER){
-                        left =   leftEl->number;
+                        left =  leftEl->number;
                     } else {
-                        int var_index = find_var_index(leftEl->op);
+                        int var_index = in_find_var_index(leftEl->op);
 
                         //We can only evaluate the expression if the variable really exists
                         if (var_index != -1){
-                            left = get_var_value(var_index);
+                            left = in_get_var_value(var_index);
                         } else {
                             //If it does not exist, terminate the evaluation an send a signal
                             //That the expression is invalid through char * invalidVar
@@ -145,13 +178,12 @@ double in_eval(char *exp, char ** invalidVar) {
                 }
 
                 //Whatever we do, the value is always pushed back the result onto the stack                
-                push(s, create_node_number(value));
+                push(s, create_node_number(value));                
 
             } else {
 
-                //Push back the value in if it is not a closing brace
+                //Push back the token in if it is not a closing brace -> it is an operator
                 push(s, create_node_operator(token));
-
 
             }
 

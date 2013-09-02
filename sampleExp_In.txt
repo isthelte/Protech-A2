@@ -5,3 +5,11 @@ anotherVar
 ( ( 6.4 / 2.3 ) + anotherVar )
 ( anotherVar = myVar )
 anotherVar
+( myVar = 1.1 )
+myVar
+( newVar1 = ( newVar2 = myVar ) )
+newVar1
+newVar2
+myVar
+( 1InvalidVar = myVar )
+( 2 = myVar )

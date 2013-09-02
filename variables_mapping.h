@@ -22,6 +22,6 @@ void add_variable(struct table * t, char * name, double value);
 
 double get_variable(struct table * t, int var_index);
 
-bool edit_variable(struct table * t, char * name, double newValue);
+void edit_variable(struct table * t, int var_index, double newValue);
 
 #endif
