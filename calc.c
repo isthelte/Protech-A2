@@ -67,7 +67,7 @@ int main (int argc, char **argv) {
     }
 
     //Here is the program:
-    printf("The program is run with the following mode:\n");
+    printf("\nThe program is run with the following mode:\n");
     printf("\t- Batch mode: %s\n", (isBatch) ? "ON" : "OFF" );
     printf("\t- Echo mode: %s\n", (isEcho) ? "ON" : "OFF" );
     printf("\t- Using option: %s\n", (isRPN) ? "RPN" : "IN" );
@@ -80,8 +80,7 @@ int main (int argc, char **argv) {
         in_createVarList();    
     } else {
         rpn_createVarList();
-    }   
-    
+    }       
 
     do { 
 
@@ -123,11 +122,14 @@ int main (int argc, char **argv) {
             } else {
 
                 //Create a char* to show the invalid Variable
-                char * invalidVariable = malloc(sizeof(char)*50);
+                char * invalidVariable = (malloc(sizeof(char)*50));                
                 invalidVariable[0] = '\0';
+                            
                 //Create a char* to show the invalid Assignment error
                 char * invalidAssignment = malloc(sizeof(char)*50);
                 invalidAssignment[0] = '\0';
+                //printf("b4: %p\n", invalidVariable );    
+
                 //Create a double to show the result
                 double result;
 
@@ -154,9 +156,11 @@ int main (int argc, char **argv) {
                     }
                 }
 
-                //Free the string when we're done
-                //free(invalidVariable); //Commented out because it's causing trouble: *** glibc detected *** ./calc: free(): invalid pointer: 0x0966f364 ***                                                      
+                //printf("after: %p\n", invalidVariable );
 
+                //Free the string when we're done
+                free(invalidVariable);                                               
+                free(invalidAssignment);
             }
 
             
@@ -175,7 +179,7 @@ int main (int argc, char **argv) {
     //Print out the exit
     printf("\n--------------------------------------");
     printf("\nNo other input received. This is considered as an exit.\n");
-    printf("Program exits. Goodbye!!\n");
+    printf("Program exits. Goodbye!!\n\n");
 
     exit (0);
 }

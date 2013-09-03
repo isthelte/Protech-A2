@@ -24,7 +24,7 @@ double rpn_get_var_value(int index){
 }
 
 //This method will evaluate the expression in RPN and return the result
-double rpn_eval(char *exp, char ** invalidVar, char ** invalidAssignment) {
+double rpn_eval(char *exp, char * *invalidVar, char * *invalidAssignment) {
     // create a stack based on the length of the expression
     // this is just a guess of the space we are going to need
     // the stack will automatically increase its size if necessary
@@ -35,7 +35,8 @@ double rpn_eval(char *exp, char ** invalidVar, char ** invalidAssignment) {
     
     // we need to make a copy of the expression to not "destroy" it while
     // we parse it
-    copy = malloc(sizeof(char)*exp_length);
+    printf("Got here\n");
+    copy = malloc(sizeof(char)*exp_length);    
     strcpy(copy, exp);
 
     // tokenise the copy of the expression based on space characters
@@ -80,8 +81,8 @@ double rpn_eval(char *exp, char ** invalidVar, char ** invalidAssignment) {
                         //That the expression is invalid through the char * invalid Var
                         free(copy);
                         free_stack(s);
-                            
-                        *invalidVar = rightEl->op;
+                                    
+                        strcpy(*invalidVar, rightEl->op);
                         //Again, make sure nothing weird happen here
                         (*invalidVar)[strlen(rightEl->op)] = '\0';
                         return -1;
@@ -107,7 +108,11 @@ double rpn_eval(char *exp, char ** invalidVar, char ** invalidAssignment) {
                     for (int i = 0; i < 10; ++i)
                     {
                         if (variable[0] == i){
-                            *invalidAssignment = "A variable name cannot start with a number";
+
+                            free(copy);
+                            free_stack(s);
+
+                            strcpy(*invalidAssignment, "A variable name cannot start with a number");
                             return -1;
                         }
                     }
@@ -118,8 +123,13 @@ double rpn_eval(char *exp, char ** invalidVar, char ** invalidAssignment) {
                         //We can only evaluate the expression if the variable really exists
                         left = rpn_get_var_value(var_index);
                     } else {
+
+                        free(copy);
+                        free_stack(s);
+
                         //If it is not there, terminate the operation and throw an error
-                        *invalidVar = variable;
+                        strcpy(*invalidVar, variable);
+                        (*invalidVar)[strlen(variable)] = '\0';                        
                         return -1;
                     }
 
@@ -150,7 +160,7 @@ double rpn_eval(char *exp, char ** invalidVar, char ** invalidAssignment) {
                         free(copy);
                         free_stack(s);
                             
-                        *invalidVar = rightEl->op;
+                        strcpy(*invalidVar, rightEl->op);
                         //Again, make sure nothing weird happen here
                         (*invalidVar)[strlen(rightEl->op)] = '\0';
                         return -1;
@@ -164,7 +174,11 @@ double rpn_eval(char *exp, char ** invalidVar, char ** invalidAssignment) {
                 //Make a decision: If it is a number, then terminate the evaluation
                 //If it is not, try looking for the variable with that name, and assign right to it
                 if (leftEl->type == ELEMENT_NUMBER){
-                    *invalidAssignment = "Left side of the '=' sign is not a valid variable";
+
+                    free(copy);
+                    free_stack(s);
+
+                    strcpy(*invalidAssignment, "Left side of the '=' sign is not a valid variable");
                     return -1;
                 } else { //If it is not a number, then there is hope
 
@@ -175,7 +189,11 @@ double rpn_eval(char *exp, char ** invalidVar, char ** invalidAssignment) {
                     for (int i = 0; i < 10; ++i)
                     {
                         if (variable_found[0] == i){
-                            *invalidAssignment = "A variable name cannot start with a number";
+
+                            free(copy);
+                            free_stack(s);
+
+                            strcpy(*invalidAssignment, "A variable name cannot start with a number");
                             return -1;
                         }
                     }

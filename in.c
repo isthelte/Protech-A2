@@ -85,7 +85,7 @@ double in_eval(char *exp, char ** invalidVar, char ** invalidAssignment) {
                         free(copy);
                         free_stack(s);
                             
-                        *invalidVar = rightEl->op;
+                        strcpy(*invalidVar, rightEl->op);
                         //Again, make sure nothing werid happen here
                         (*invalidVar)[strlen(rightEl->op)] = '\0';
                         return -1;
@@ -103,10 +103,14 @@ double in_eval(char *exp, char ** invalidVar, char ** invalidAssignment) {
 
                     //We check if this is a variable or a number
                     if (variable->type == ELEMENT_NUMBER){
+
+                        free(copy);
+                        free_stack(s);
+
                         //If it is a number, there is no way the assignment can be done
                         //For example, 8 = 1 does not make sense at all
                         //Terminate the expression
-                        *invalidAssignment = "Left side of the '=' sign is not a valid variable";
+                        strcpy(*invalidAssignment, "Left side of the '=' sign is not a valid variable");
                         return -1;
                     } else { // If it is not a number, then there is hope
 
@@ -117,7 +121,11 @@ double in_eval(char *exp, char ** invalidVar, char ** invalidAssignment) {
                         for (int i = 0; i < 10; ++i)
                         {
                             if (variable_found[0] == i){
-                                *invalidAssignment = "A variable name cannot start with a number";
+
+                                free(copy);
+                                free_stack(s);
+
+                                strcpy(*invalidAssignment, "A variable name cannot start with a number");
                                 return -1;
                             }
                         }
@@ -160,7 +168,7 @@ double in_eval(char *exp, char ** invalidVar, char ** invalidAssignment) {
                             free(copy);
                             free_stack(s);
 
-                            *invalidVar = leftEl->op;
+                            strcpy(*invalidVar, leftEl->op);
                             //Again, make sure nothing weird happen here
                             (*invalidVar)[strlen(leftEl->op)] = '\0';
                             return -1;

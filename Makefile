@@ -21,6 +21,12 @@ testrpn: $(OBJS2)
 
 $(OBJS2): $(HEADERS2)
 
+intest: $(EXECS)
+	./calc -e --in < sampleExp_In.txt
+
+rpntest: $(EXECS)
+	./calc -e --rpn < sampleExp_RPN.txt
+
 .PHONY: clean
 clean:
 	rm *.o 
