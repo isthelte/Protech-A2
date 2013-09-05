@@ -3,7 +3,7 @@
 
 void rpn_createVarList();
 
-double rpn_eval(char *exp, char ** invalidVar, char ** invalidAssignment);
+double rpn_eval(char *exp, char ** invalidVar, char ** otherExceptions);
 
 int rpn_find_var_index(char * name);
 

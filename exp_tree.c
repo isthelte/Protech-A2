@@ -47,7 +47,7 @@ struct et_node * et_create_operator_node(char op[],
  * @return pointer to the root node of the new expression tree.
  */
 struct et_node * et_create(char *exp, enum et_order order){
-
+    
 }
 
 /**
@@ -55,10 +55,8 @@ struct et_node * et_create(char *exp, enum et_order order){
  * @param node pointer to the node to free.
  */
 void et_free(struct et_node *node);  {
-	if (node == NULL) {
-        printf("[]\n");
-    } else {
-    	et_free(node->left);
+	if (node != NULL) {
+        et_free(node->left);
         et_free(node->right);
         free(node);
     }
@@ -70,7 +68,7 @@ void et_free(struct et_node *node);  {
  * @return the value of the expression.
  */
 double et_eval(struct et_node *node){
-
+    
 }
                                       
 /**

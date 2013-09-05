@@ -25,7 +25,7 @@ double in_get_var_value(int index){
 }
 
 //This method will evaluate the expression in RPN and return the result
-double in_eval(char *exp, char ** invalidVar, char ** invalidAssignment) {
+double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
     // create a stack based on the length of the expression
     // this is just a guess of the space we are going to need
     // the stack will automatically increase its size if necessary
@@ -57,18 +57,31 @@ double in_eval(char *exp, char ** invalidVar, char ** invalidAssignment) {
         // sscanf is like scanf, but works on strings instead of stdin
         // if the token is an int       
         if (0.00 < sscanf(token, "%lf", &value)) {
+
             //printf("number: %s\n", token);
             // push the double on the stack
             push(s, create_node_number(value));
+
         } else {
-            // the token is not an int, therefore it must be an operator (hopefully)
-                    
+
+            // the token is not an int, therefore it must be an operator or an assignment (hopefully)                    
             //Edit: Only pop and calculate the value if we reach a closing bracket -> )
-            if (token[0] == ')'){                                
+            if (token[0] == ')' && strlen(token) == 1){                                
                 
                 //printf("Got a closing bracket\n");
                 // pop the right operand
                 struct element * rightEl = pop(s);
+
+                //If there is nothing there, it means the expression is invalid, throw an exception and quit            
+                if (rightEl == NULL){
+                    strcpy(*otherExceptions, "The expression is invalid.");
+
+                    free(copy);
+                    free_stack(s);
+
+                    return -1;
+                }
+
                 //Make a decision: If it is a number, then just assign the value to right
                 //If it is not, try looking for the variable with that name, and return its value to right
                 if (rightEl->type == ELEMENT_NUMBER){
@@ -93,13 +106,33 @@ double in_eval(char *exp, char ** invalidVar, char ** invalidAssignment) {
                 }
                 
                 //pop the operator
-                operator_found = pop(s)->op;                
+                operator_found = pop(s)->op;
+
+                //If there is nothing there, it means the expression is invalid, throw an exception and quit            
+                if (operator_found == NULL){
+                    strcpy(*otherExceptions, "The expression is invalid.");
+
+                    free(copy);
+                    free_stack(s);
+
+                    return -1;
+                }                
 
                 //Determine if the operator_found is an '=' sign or not
                 if (operator_found[0] == '='){ //If it IS an equal sign
 
                     //pop the variable name
                     struct element * variable = pop(s);
+
+                    //If there is nothing there, it means the expression is invalid, throw an exception and quit            
+                    if (variable == NULL){
+                        strcpy(*otherExceptions, "The expression is invalid.");
+
+                        free(copy);
+                        free_stack(s);
+
+                        return -1;
+                    }
 
                     //We check if this is a variable or a number
                     if (variable->type == ELEMENT_NUMBER){
@@ -110,8 +143,9 @@ double in_eval(char *exp, char ** invalidVar, char ** invalidAssignment) {
                         //If it is a number, there is no way the assignment can be done
                         //For example, 8 = 1 does not make sense at all
                         //Terminate the expression
-                        strcpy(*invalidAssignment, "Left side of the '=' sign is not a valid variable");
+                        strcpy(*otherExceptions, "Left side of the '=' sign is not a valid variable");
                         return -1;
+
                     } else { // If it is not a number, then there is hope
 
                         variable_found = variable->op;    
@@ -125,7 +159,7 @@ double in_eval(char *exp, char ** invalidVar, char ** invalidAssignment) {
                                 free(copy);
                                 free_stack(s);
 
-                                strcpy(*invalidAssignment, "A variable name cannot start with a number");
+                                strcpy(*otherExceptions, "A variable name cannot start with a number");
                                 return -1;
                             }
                         }
@@ -149,9 +183,20 @@ double in_eval(char *exp, char ** invalidVar, char ** invalidAssignment) {
                     value = right;
 
                 } else { //Only evaluate as follow if it is not an '=' sign
-                    
+                   
                     //pop the left operand
                     struct element * leftEl = pop(s);
+
+                    //If there is nothing there, it means the expression is invalid, throw an exception and quit            
+                    if (leftEl == NULL){
+                        strcpy(*otherExceptions, "The expression is invalid.");
+
+                        free(copy);
+                        free_stack(s);
+
+                        return -1;
+                    }
+
                     //Make a decision: If it is a number, then just assign the value to left
                     //If it is not, try looking for the variable with that name, and return its value to left
                     if (leftEl->type == ELEMENT_NUMBER){
@@ -181,7 +226,17 @@ double in_eval(char *exp, char ** invalidVar, char ** invalidAssignment) {
                     //printf("operator: %s\n", token);
                     //value = operations[find_operation(operator_found)](left,right);
                     //printf("Get the operator: %s(%i) \n", operator_found, strlen(operator_found));
-                    value = execute_operation(operator_found, left, right);                    
+                    
+                    //We can only evaluate an expression if the operator is KNOWN
+                    if (find_operation(operator_found) == -1){
+                        free(copy);
+                        free_stack(s);
+
+                        strcpy(*otherExceptions, "invalid operator is found");
+                        return -1;
+                    } else {
+                        value = execute_operation(operator_found, left, right);                        
+                    }               
                     
                 }
 
@@ -206,6 +261,18 @@ double in_eval(char *exp, char ** invalidVar, char ** invalidAssignment) {
     }    
     
     value = pop(s)->number;
+
+    //At this point, there should be nothing left in the stack
+    //If there IS, however, it means the expression is invalid
+    //Terminate the evaluation and throw an exception
+    if (peek(s) != NULL){
+        strcpy(*otherExceptions, "The expression is invalid");
+
+        free(copy);
+        free_stack(s);
+
+        return -1;
+    }
 
     free(copy);
     free_stack(s);

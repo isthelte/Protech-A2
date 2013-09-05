@@ -125,9 +125,9 @@ int main (int argc, char **argv) {
                 char * invalidVariable = (malloc(sizeof(char)*50));                
                 invalidVariable[0] = '\0';
                             
-                //Create a char* to show the invalid Assignment error
-                char * invalidAssignment = malloc(sizeof(char)*50);
-                invalidAssignment[0] = '\0';
+                //Create a char* to show the other errors
+                char * otherExceptions = malloc(sizeof(char)*50);
+                otherExceptions[0] = '\0';
                 //printf("b4: %p\n", invalidVariable );    
 
                 //Create a double to show the result
@@ -135,24 +135,24 @@ int main (int argc, char **argv) {
 
                 if (isRPN){
 
-                    result = rpn_eval(input, &invalidVariable, &invalidAssignment);
+                    result = rpn_eval(input, &invalidVariable, &otherExceptions);
 
                 } else {         
                 
-                    result = in_eval(input, &invalidVariable, &invalidAssignment);
+                    result = in_eval(input, &invalidVariable, &otherExceptions);
 
                 }
 
                 //printf("%s\n", (invalidVariable[0] == '\0') ? "There is no error" : "There is an error" );
                 //If there is no error, print out the result
-                if (invalidVariable[0] == '\0' && invalidAssignment[0] == '\0'){
+                if (invalidVariable[0] == '\0' && otherExceptions[0] == '\0'){
                     printf("%lf\n", result);
                 } else {
                     //If there is an error, print out the error
                     if (invalidVariable[0] != '\0')
                         printf("Unrecognized variable name '%s'. The evaluation is terminated \n", invalidVariable);
-                    if (invalidAssignment[0] != '\0'){
-                        printf("%s\n", invalidAssignment);
+                    if (otherExceptions[0] != '\0'){
+                        printf("%s\n", otherExceptions);
                     }
                 }
 
@@ -160,7 +160,7 @@ int main (int argc, char **argv) {
 
                 //Free the string when we're done
                 free(invalidVariable);                                               
-                free(invalidAssignment);
+                free(otherExceptions);
             }
 
             

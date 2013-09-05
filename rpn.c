@@ -24,7 +24,7 @@ double rpn_get_var_value(int index){
 }
 
 //This method will evaluate the expression in RPN and return the result
-double rpn_eval(char *exp, char * *invalidVar, char * *invalidAssignment) {
+double rpn_eval(char *exp, char * *invalidVar, char * *otherExceptions) {
     // create a stack based on the length of the expression
     // this is just a guess of the space we are going to need
     // the stack will automatically increase its size if necessary
@@ -35,7 +35,7 @@ double rpn_eval(char *exp, char * *invalidVar, char * *invalidAssignment) {
     
     // we need to make a copy of the expression to not "destroy" it while
     // we parse it
-    printf("Got here\n");
+    //printf("Got here\n");
     copy = malloc(sizeof(char)*exp_length);    
     strcpy(copy, exp);
 
@@ -62,6 +62,16 @@ double rpn_eval(char *exp, char * *invalidVar, char * *invalidAssignment) {
 
                 // pop the right operand
                 struct element * rightEl = pop(s);
+
+                //If there is nothing there, it means the expression is invalid, throw an exception and quit            
+                if (rightEl == NULL){
+                    strcpy(*otherExceptions, "The expression is invalid.");
+
+                    free(copy);
+                    free_stack(s);
+
+                    return -1;
+                }
 
                 //Make a decision: If it is a number, then just assign the value to right
                 //If it is not, try looking for the variable with that name, and return its value to right
@@ -93,6 +103,16 @@ double rpn_eval(char *exp, char * *invalidVar, char * *invalidAssignment) {
                 //UPDATE: THE LEFT OPERAND MUST BE A VARIABLE!
                 struct element * leftEl = pop(s);
 
+                //If there is nothing there, it means the expression is invalid, throw an exception and quit            
+                if (leftEl == NULL){
+                    strcpy(*otherExceptions, "The expression is invalid.");
+
+                    free(copy);
+                    free_stack(s);
+
+                    return -1;
+                }
+
                 //Make a decision: If it is a number, then continue and take the value
                 //If it is not, try looking for the variable with that name, and assign right to it
                 if (leftEl->type == ELEMENT_NUMBER){
@@ -112,7 +132,7 @@ double rpn_eval(char *exp, char * *invalidVar, char * *invalidAssignment) {
                             free(copy);
                             free_stack(s);
 
-                            strcpy(*invalidAssignment, "A variable name cannot start with a number");
+                            strcpy(*otherExceptions, "A variable name cannot start with a number");
                             return -1;
                         }
                     }
@@ -134,8 +154,18 @@ double rpn_eval(char *exp, char * *invalidVar, char * *invalidAssignment) {
                     }
 
                 }
+                
+                //We can only evaluate an expression if the operator is KNOWN
+                if (find_operation(token) == -1){
+                    free(copy);
+                    free_stack(s);
 
-                value = execute_operation(token, left, right);
+                    strcpy(*otherExceptions, "invalid operator is found");
+                    return -1;
+                } else {
+                    value = execute_operation(token, left, right);    
+                }                
+                
                 // push the result back on the stack
                 push(s, create_node_number(value));                
 
@@ -143,6 +173,16 @@ double rpn_eval(char *exp, char * *invalidVar, char * *invalidAssignment) {
 
                 // pop the right operand
                 struct element * rightEl = pop(s);
+
+                //If there is nothing there, it means the expression is invalid, throw an exception and quit            
+                if (rightEl == NULL){
+                    strcpy(*otherExceptions, "The expression is invalid.");
+
+                    free(copy);
+                    free_stack(s);
+
+                    return -1;
+                }
 
                 //Make a decision: If it is a number, then just assign the value to right
                 //If it is not, try looking for the variable with that name, and return its value to right
@@ -171,6 +211,16 @@ double rpn_eval(char *exp, char * *invalidVar, char * *invalidAssignment) {
                 //UPDATE: THE LEFT OPERAND MUST BE A VARIABLE!
                 struct element * leftEl = pop(s);
 
+                //If there is nothing there, it means the expression is invalid, throw an exception and quit            
+                if (leftEl == NULL){
+                    strcpy(*otherExceptions, "The expression is invalid.");
+
+                    free(copy);
+                    free_stack(s);
+
+                    return -1;
+                }
+
                 //Make a decision: If it is a number, then terminate the evaluation
                 //If it is not, try looking for the variable with that name, and assign right to it
                 if (leftEl->type == ELEMENT_NUMBER){
@@ -178,7 +228,7 @@ double rpn_eval(char *exp, char * *invalidVar, char * *invalidAssignment) {
                     free(copy);
                     free_stack(s);
 
-                    strcpy(*invalidAssignment, "Left side of the '=' sign is not a valid variable");
+                    strcpy(*otherExceptions, "Left side of the '=' sign is not a valid variable");
                     return -1;
                 } else { //If it is not a number, then there is hope
 
@@ -193,7 +243,7 @@ double rpn_eval(char *exp, char * *invalidVar, char * *invalidAssignment) {
                             free(copy);
                             free_stack(s);
 
-                            strcpy(*invalidAssignment, "A variable name cannot start with a number");
+                            strcpy(*otherExceptions, "A variable name cannot start with a number");
                             return -1;
                         }
                     }
@@ -222,7 +272,6 @@ double rpn_eval(char *exp, char * *invalidVar, char * *invalidAssignment) {
                 push(s, create_node_operator(token));
 
             }
-
             
         }
 
@@ -235,6 +284,18 @@ double rpn_eval(char *exp, char * *invalidVar, char * *invalidAssignment) {
     }    
     
     value = pop(s)->number;
+
+    //At this point, there should be nothing left in the stack
+    //If there IS, however, it means the expression is invalid
+    //Terminate the evaluation and throw an exception
+    if (peek(s) != NULL){
+        strcpy(*otherExceptions, "The expression is invalid");
+
+        free(copy);
+        free_stack(s);
+
+        return -1;
+    }
 
     free(copy);
     free_stack(s);

@@ -1,7 +1,7 @@
 #ifndef ET_STACK
 #define ET_STACK
 
-#define RESIZE_FACTOR 1.5
+#define ETS_RESIZE_FACTOR 1.5
 #include "exp_tree.h"
 
 struct et_stack {

@@ -10,7 +10,8 @@ struct et_node {
     enum et_node_type type;              
     union {
         double number;      /**< the number to store in the node */
-        char op[2];         /**< an operator has at most 2 chars */
+        char op[50];         /**< an operator has at most 2 chars */
+    						//UPDATE: It now supports variable names too
     };
     struct et_node *left;   /**< pointer to the left child node of this node */
     struct et_node *right;  /**< pointer to the right child node of this node */

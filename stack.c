@@ -37,7 +37,7 @@ struct stack * create_stack(int length) {
     struct stack * s = malloc(sizeof(struct stack));
     s->top = -1;
     s->length = length;
-    s->data = malloc(sizeof(struct element)*length);
+    s->data = malloc(sizeof(struct element *)*length);
     
     return s;
 }
@@ -57,11 +57,23 @@ void push(struct stack *s, struct element * e) {
 }
 
 struct element * peek(struct stack *s) {
+    
+    //There is no data left to pop
+    if (s->top == -1){
+        return NULL;
+    }
+
     return s->data[s->top];
 }
 
 struct element * pop(struct stack *s) {
-    s->top--;
+
+    //There is no data left to pop
+    if (s->top == -1){
+        return NULL;
+    }
+
+    s->top--;    
     return s->data[s->top+1];
 }
 

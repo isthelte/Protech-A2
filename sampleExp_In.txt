@@ -4,6 +4,11 @@ anotherVar
 ( ( 2.2 * 5.1 ) / myVar )
 ( ( 6.4 / 2.3 ) + anotherVar )
 ( anotherVar = myVar )
+( )
+( + 1 )
+( 2 + + )
+( 1 1 1 )
+( + + + )
 anotherVar
 ( myVar = 1.1 )
 myVar

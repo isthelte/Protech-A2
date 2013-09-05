@@ -3,7 +3,7 @@
 
 void in_createVarList();
 
-double in_eval(char *exp, char ** invalidVar, char ** invalidAssignment);
+double in_eval(char *exp, char ** invalidVar, char ** otherExceptions);
 
 int in_find_var_index(char * name);
 
