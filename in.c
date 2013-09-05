@@ -26,16 +26,17 @@ double in_get_var_value(int index){
 
 //This method will evaluate the expression in RPN and return the result
 double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
+
     // create a stack based on the length of the expression
     // this is just a guess of the space we are going to need
     // the stack will automatically increase its size if necessary
-    int exp_length = strlen(exp);
+    int exp_length = strlen(exp);    
     struct stack *s = create_stack(exp_length/2);
 
     //create necessary values for storing operators and operands
     char *token, *copy, *operator_found, *variable_found;
     double value, left, right;
-    
+
     // we need to make a copy of the expression to not "destroy" it while
     // we parse it
     copy = malloc(sizeof(char)*exp_length);
@@ -44,7 +45,7 @@ double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
     // tokenise the copy of the expression based on space characters
     token = strtok(copy, " ");
     // while there is another token to process
-    while (token != NULL) {        
+    while (token != NULL) {            
 
         //Make sure there is only the character ) and nothing strange after that
         if (strlen(token) > 1 && token[0] == ')'){
@@ -62,7 +63,7 @@ double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
             // push the double on the stack
             push(s, create_node_number(value));
 
-        } else {
+        } else {            
 
             // the token is not an int, therefore it must be an operator or an assignment (hopefully)                    
             //Edit: Only pop and calculate the value if we reach a closing bracket -> )
@@ -73,8 +74,8 @@ double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
                 struct element * rightEl = pop(s);
 
                 //If there is nothing there, it means the expression is invalid, throw an exception and quit            
-                if (rightEl == NULL){
-                    strcpy(*otherExceptions, "The expression is invalid.");
+                if (rightEl == NULL){                    
+                    strcpy(*otherExceptions, "The expression is invalid.");                    
 
                     free(copy);
                     free_stack(s);
@@ -93,14 +94,13 @@ double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
                     if (var_index != -1){
                         right = in_get_var_value(var_index);
                     } else {
-                        //If it does not exist, terminate the evaluation an send a signal
+                        //If it does not exist, terminate the evaluation and send a signal
                         //That the expression is invalid through the char * invalid Var
-                        free(copy);
-                        free_stack(s);
-                            
                         strcpy(*invalidVar, rightEl->op);
-                        //Again, make sure nothing werid happen here
-                        (*invalidVar)[strlen(rightEl->op)] = '\0';
+
+                        free(copy);
+                        free_stack(s);                        
+                                                
                         return -1;
                     }
                 }
@@ -110,6 +110,7 @@ double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
 
                 //If there is nothing there, it means the expression is invalid, throw an exception and quit            
                 if (operator_found == NULL){
+
                     strcpy(*otherExceptions, "The expression is invalid.");
 
                     free(copy);
@@ -125,7 +126,7 @@ double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
                     struct element * variable = pop(s);
 
                     //If there is nothing there, it means the expression is invalid, throw an exception and quit            
-                    if (variable == NULL){
+                    if (variable == NULL){                        
                         strcpy(*otherExceptions, "The expression is invalid.");
 
                         free(copy);
@@ -188,7 +189,7 @@ double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
                     struct element * leftEl = pop(s);
 
                     //If there is nothing there, it means the expression is invalid, throw an exception and quit            
-                    if (leftEl == NULL){
+                    if (leftEl == NULL){                        
                         strcpy(*otherExceptions, "The expression is invalid.");
 
                         free(copy);
@@ -255,7 +256,7 @@ double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
         //printf("peek:%s\n", peek(s)->op);
         // get the next token
         // strtok has a state: when called with NULL as the first argument,
-        // it will continue to tokenise the previous string given to it
+        // it will continue to tokenise the previous string given to it        
         token = strtok(NULL, " ");           
         //print_stack(s);
     }    
@@ -268,13 +269,13 @@ double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
     if (peek(s) != NULL){
         strcpy(*otherExceptions, "The expression is invalid");
 
-        free(copy);
+        //free(copy);
         free_stack(s);
 
         return -1;
-    }
+    }    
 
-    free(copy);
+    //free(copy); //This keeps giving me trouble so ...
     free_stack(s);
 
     return value;

@@ -20,7 +20,7 @@ double divide(double a, double b){
     return a/b;
 }
 
-double power(double a, double b){    
+/*double power(double a, double b){    
     //If b = 0, then there is no need to calculate
     if (b == 0){
         return 1;
@@ -35,6 +35,10 @@ double power(double a, double b){
 
         return (b > 0) ? result : 1 / result;
     }    
+}*/
+
+double power(double a, double b){
+    return pow(a, b);    
 }
 
 double maximum(double a, double b){

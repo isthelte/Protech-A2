@@ -42,9 +42,11 @@ struct stack * create_stack(int length) {
     return s;
 }
 
-void free_stack(struct stack *s) {
+void free_stack(struct stack *s) {        
+
     free(s->data);
-    free(s); // This thing is causing trouble, the bug is: *** glibc detected *** ./calc: free(): invalid next size (fast): 0x087c8108 ***. Any idea?
+
+    free(s);
 }
 
 void push(struct stack *s, struct element * e) {

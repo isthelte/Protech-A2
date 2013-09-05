@@ -12,14 +12,9 @@ HEADERS2 = rpn.h
 EXECS2 = test_rpn
 
 calc: $(OBJS)
-	$(CC) $(CFLAGS) -o calc $(OBJS)
+	$(CC) $(CFLAGS) -o calc $(OBJS) -lm
 
 $(OBJS): $(HEADERS)
-
-testrpn: $(OBJS2)
-	$(CC) $(CFLAGS) -o test_rpn $(OBJS2)
-
-$(OBJS2): $(HEADERS2)
 
 intest: $(EXECS)
 	./calc -e --in < sampleExp_In.txt

@@ -89,10 +89,11 @@ double rpn_eval(char *exp, char * *invalidVar, char * *otherExceptions) {
 
                         //If it does not exist, terminate the evaluation an send a signal
                         //That the expression is invalid through the char * invalid Var
-                        free(copy);
-                        free_stack(s);
-                                    
                         strcpy(*invalidVar, rightEl->op);
+
+                        free(copy);
+                        free_stack(s);                                    
+                        
                         //Again, make sure nothing weird happen here
                         (*invalidVar)[strlen(rightEl->op)] = '\0';
                         return -1;
@@ -129,10 +130,11 @@ double rpn_eval(char *exp, char * *invalidVar, char * *otherExceptions) {
                     {
                         if (variable[0] == i){
 
+                            strcpy(*otherExceptions, "A variable name cannot start with a number");
+
                             free(copy);
                             free_stack(s);
-
-                            strcpy(*otherExceptions, "A variable name cannot start with a number");
+                            
                             return -1;
                         }
                     }
@@ -144,12 +146,13 @@ double rpn_eval(char *exp, char * *invalidVar, char * *otherExceptions) {
                         left = rpn_get_var_value(var_index);
                     } else {
 
-                        free(copy);
-                        free_stack(s);
-
                         //If it is not there, terminate the operation and throw an error
                         strcpy(*invalidVar, variable);
-                        (*invalidVar)[strlen(variable)] = '\0';                        
+                        (*invalidVar)[strlen(variable)] = '\0';
+
+                        free(copy);
+                        free_stack(s);
+                                                
                         return -1;
                     }
 
@@ -157,10 +160,12 @@ double rpn_eval(char *exp, char * *invalidVar, char * *otherExceptions) {
                 
                 //We can only evaluate an expression if the operator is KNOWN
                 if (find_operation(token) == -1){
-                    free(copy);
-                    free_stack(s);
 
                     strcpy(*otherExceptions, "invalid operator is found");
+
+                    free(copy);
+                    free_stack(s);
+                    
                     return -1;
                 } else {
                     value = execute_operation(token, left, right);    
@@ -197,12 +202,14 @@ double rpn_eval(char *exp, char * *invalidVar, char * *otherExceptions) {
                     } else {
                         //If it does not exist, terminate the evaluation an send a signal
                         //That the expression is invalid through the char * invalid Var
-                        free(copy);
-                        free_stack(s);
-                            
+
                         strcpy(*invalidVar, rightEl->op);
                         //Again, make sure nothing weird happen here
                         (*invalidVar)[strlen(rightEl->op)] = '\0';
+
+                        free(copy);
+                        free_stack(s);                            
+                        
                         return -1;
                     }
                 }                
@@ -225,10 +232,11 @@ double rpn_eval(char *exp, char * *invalidVar, char * *otherExceptions) {
                 //If it is not, try looking for the variable with that name, and assign right to it
                 if (leftEl->type == ELEMENT_NUMBER){
 
+                    strcpy(*otherExceptions, "Left side of the '=' sign is not a valid variable");
+
                     free(copy);
                     free_stack(s);
-
-                    strcpy(*otherExceptions, "Left side of the '=' sign is not a valid variable");
+                    
                     return -1;
                 } else { //If it is not a number, then there is hope
 
@@ -240,10 +248,11 @@ double rpn_eval(char *exp, char * *invalidVar, char * *otherExceptions) {
                     {
                         if (variable_found[0] == i){
 
+                            strcpy(*otherExceptions, "A variable name cannot start with a number");
+
                             free(copy);
                             free_stack(s);
-
-                            strcpy(*otherExceptions, "A variable name cannot start with a number");
+                            
                             return -1;
                         }
                     }
