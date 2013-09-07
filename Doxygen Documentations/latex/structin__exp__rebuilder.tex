@@ -1,0 +1,205 @@
+\hypertarget{structin__exp__rebuilder}{\section{in\-\_\-exp\-\_\-rebuilder Struct Reference}
+\label{structin__exp__rebuilder}\index{in\-\_\-exp\-\_\-rebuilder@{in\-\_\-exp\-\_\-rebuilder}}
+}
+
+
+Rebuilding the in-\/order expressions if it does not have ().  
+
+
+
+
+{\ttfamily \#include $<$in\-\_\-exp\-\_\-rebuilder.\-h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{structin__exp__rebuilder_abfaea167217154d8ca36509ffbe06cf5}{is\-\_\-\-Valid\-\_\-\-Exp} (char $\ast$input)
+\begin{DoxyCompactList}\small\item\em Check if the expression is valid for rebuilding by checking the number of open brackets and close brackets. \end{DoxyCompactList}\item 
+bool \hyperlink{structin__exp__rebuilder_a7c37d43cdab0561cd430352c3e2d5edc}{is\-\_\-\-Full\-\_\-\-Exp} (char $\ast$input)
+\begin{DoxyCompactList}\small\item\em Check if the expression is full expression, with all the () supported or not. \end{DoxyCompactList}\item 
+int \hyperlink{structin__exp__rebuilder_a481515d16b6ab6e53d8ae68f20f059a7}{find\-\_\-string} (char $\ast$input, char $\ast$to\-Find, int index\-\_\-larger\-\_\-than)
+\begin{DoxyCompactList}\small\item\em Find a sub-\/string in a larger string at is located only after a specified index\end{DoxyCompactList}\item 
+int \hyperlink{structin__exp__rebuilder_a234ba48a53e618408c54c9528f1af7f6}{advances\-\_\-one\-\_\-token} (char $\ast$input, int current\-\_\-index)
+\begin{DoxyCompactList}\small\item\em Assuming that all the token in the expression is separated by a ' ' .This function take the index of a token and return the index of the next token to the right. \end{DoxyCompactList}\item 
+int \hyperlink{structin__exp__rebuilder_a79101218986d1c921abf48a0a7bbd3b5}{go\-\_\-back\-\_\-one\-\_\-token} (char $\ast$input, int current\-\_\-index)
+\begin{DoxyCompactList}\small\item\em Assuming that all the token in the expression is separated by a ' ' .This function takes the index of a token and return the index of the previous token to the left. \end{DoxyCompactList}\item 
+void \hyperlink{structin__exp__rebuilder_a603b20afff7b841b6bb7c1b8bd63f7c4}{insert\-\_\-char\-\_\-before\-\_\-index} (char $\ast$input, int after\-\_\-index, char char\-\_\-to\-\_\-insert)
+\begin{DoxyCompactList}\small\item\em Assuming that all the token in the expression is separated by a ' ' .Insert a character and a ' ' before a character located at the index specified. \end{DoxyCompactList}\item 
+void \hyperlink{structin__exp__rebuilder_add0bc435a55d29f6f3eba4eb51564c9e}{add\-\_\-bracket\-\_\-pairs} (char $\ast$input, char $\ast$operator)
+\begin{DoxyCompactList}\small\item\em .This function finds the operator specified in the expression. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{structin__exp__rebuilder_a67d5706a4b5015411fea45aa77f2ea5f}{rebuild\-\_\-in\-\_\-exp} (char $\ast$input)
+\begin{DoxyCompactList}\small\item\em Takes in an incompleted in-\/order expression and return the full in-\/order expression, with all the '(' and ')' needed to execute. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Rebuilding the in-\/order expressions if it does not have (). 
+
+\subsection{Member Function Documentation}
+\hypertarget{structin__exp__rebuilder_add0bc435a55d29f6f3eba4eb51564c9e}{\index{in\-\_\-exp\-\_\-rebuilder@{in\-\_\-exp\-\_\-rebuilder}!add\-\_\-bracket\-\_\-pairs@{add\-\_\-bracket\-\_\-pairs}}
+\index{add\-\_\-bracket\-\_\-pairs@{add\-\_\-bracket\-\_\-pairs}!in_exp_rebuilder@{in\-\_\-exp\-\_\-rebuilder}}
+\subsubsection[{add\-\_\-bracket\-\_\-pairs}]{\setlength{\rightskip}{0pt plus 5cm}void add\-\_\-bracket\-\_\-pairs (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{input, }
+\item[{char $\ast$}]{operator}
+\end{DoxyParamCaption}
+)}}\label{structin__exp__rebuilder_add0bc435a55d29f6f3eba4eb51564c9e}
+
+
+.This function finds the operator specified in the expression. 
+
+If an expression is found, it will find a left operand and right operand of that operator and \char`\"{}group\char`\"{} them using '(' and ')' .If that operator has already been \char`\"{}group-\/ed\char`\"{}, this function will do nothing 
+\begin{DoxyParams}{Parameters}
+{\em char$\ast$} & the expression to be evaluated. \\
+\hline
+{\em char$\ast$} & the operator to be looked up. \\
+\hline
+\end{DoxyParams}
+\hypertarget{structin__exp__rebuilder_a234ba48a53e618408c54c9528f1af7f6}{\index{in\-\_\-exp\-\_\-rebuilder@{in\-\_\-exp\-\_\-rebuilder}!advances\-\_\-one\-\_\-token@{advances\-\_\-one\-\_\-token}}
+\index{advances\-\_\-one\-\_\-token@{advances\-\_\-one\-\_\-token}!in_exp_rebuilder@{in\-\_\-exp\-\_\-rebuilder}}
+\subsubsection[{advances\-\_\-one\-\_\-token}]{\setlength{\rightskip}{0pt plus 5cm}int advances\-\_\-one\-\_\-token (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{input, }
+\item[{int}]{current\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{structin__exp__rebuilder_a234ba48a53e618408c54c9528f1af7f6}
+
+
+Assuming that all the token in the expression is separated by a ' ' .This function take the index of a token and return the index of the next token to the right. 
+
+.If the current index is at the end of the expression, it will return the current index 
+\begin{DoxyParams}{Parameters}
+{\em char$\ast$} & the expression to be evaluated. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the index of the next token 
+\end{DoxyReturn}
+\hypertarget{structin__exp__rebuilder_a481515d16b6ab6e53d8ae68f20f059a7}{\index{in\-\_\-exp\-\_\-rebuilder@{in\-\_\-exp\-\_\-rebuilder}!find\-\_\-string@{find\-\_\-string}}
+\index{find\-\_\-string@{find\-\_\-string}!in_exp_rebuilder@{in\-\_\-exp\-\_\-rebuilder}}
+\subsubsection[{find\-\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}int find\-\_\-string (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{input, }
+\item[{char $\ast$}]{to\-Find, }
+\item[{int}]{index\-\_\-larger\-\_\-than}
+\end{DoxyParamCaption}
+)}}\label{structin__exp__rebuilder_a481515d16b6ab6e53d8ae68f20f059a7}
+
+
+Find a sub-\/string in a larger string at is located only after a specified index
+
+If nothing is found, the function returns -\/1 
+\begin{DoxyParams}{Parameters}
+{\em char$\ast$} & the expression to be evaluated. \\
+\hline
+{\em char$\ast$} & the sub-\/string to be looked up \\
+\hline
+{\em int} & the index of the big string from which the search start to look up \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the index of the sub-\/string in the large string 
+\end{DoxyReturn}
+\hypertarget{structin__exp__rebuilder_a79101218986d1c921abf48a0a7bbd3b5}{\index{in\-\_\-exp\-\_\-rebuilder@{in\-\_\-exp\-\_\-rebuilder}!go\-\_\-back\-\_\-one\-\_\-token@{go\-\_\-back\-\_\-one\-\_\-token}}
+\index{go\-\_\-back\-\_\-one\-\_\-token@{go\-\_\-back\-\_\-one\-\_\-token}!in_exp_rebuilder@{in\-\_\-exp\-\_\-rebuilder}}
+\subsubsection[{go\-\_\-back\-\_\-one\-\_\-token}]{\setlength{\rightskip}{0pt plus 5cm}int go\-\_\-back\-\_\-one\-\_\-token (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{input, }
+\item[{int}]{current\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{structin__exp__rebuilder_a79101218986d1c921abf48a0a7bbd3b5}
+
+
+Assuming that all the token in the expression is separated by a ' ' .This function takes the index of a token and return the index of the previous token to the left. 
+
+.If the current index is at the beginning of the expression, it will return the current index 
+\begin{DoxyParams}{Parameters}
+{\em char$\ast$} & the expression to be evaluated. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the index of the previous token 
+\end{DoxyReturn}
+\hypertarget{structin__exp__rebuilder_a603b20afff7b841b6bb7c1b8bd63f7c4}{\index{in\-\_\-exp\-\_\-rebuilder@{in\-\_\-exp\-\_\-rebuilder}!insert\-\_\-char\-\_\-before\-\_\-index@{insert\-\_\-char\-\_\-before\-\_\-index}}
+\index{insert\-\_\-char\-\_\-before\-\_\-index@{insert\-\_\-char\-\_\-before\-\_\-index}!in_exp_rebuilder@{in\-\_\-exp\-\_\-rebuilder}}
+\subsubsection[{insert\-\_\-char\-\_\-before\-\_\-index}]{\setlength{\rightskip}{0pt plus 5cm}void insert\-\_\-char\-\_\-before\-\_\-index (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{input, }
+\item[{int}]{after\-\_\-index, }
+\item[{char}]{char\-\_\-to\-\_\-insert}
+\end{DoxyParamCaption}
+)}}\label{structin__exp__rebuilder_a603b20afff7b841b6bb7c1b8bd63f7c4}
+
+
+Assuming that all the token in the expression is separated by a ' ' .Insert a character and a ' ' before a character located at the index specified. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em char$\ast$} & the expression to be evaluated. \\
+\hline
+{\em int} & the index after which the new character is inserted. \\
+\hline
+{\em char} & the character to be inserted before the character at that index. \\
+\hline
+\end{DoxyParams}
+\hypertarget{structin__exp__rebuilder_a7c37d43cdab0561cd430352c3e2d5edc}{\index{in\-\_\-exp\-\_\-rebuilder@{in\-\_\-exp\-\_\-rebuilder}!is\-\_\-\-Full\-\_\-\-Exp@{is\-\_\-\-Full\-\_\-\-Exp}}
+\index{is\-\_\-\-Full\-\_\-\-Exp@{is\-\_\-\-Full\-\_\-\-Exp}!in_exp_rebuilder@{in\-\_\-exp\-\_\-rebuilder}}
+\subsubsection[{is\-\_\-\-Full\-\_\-\-Exp}]{\setlength{\rightskip}{0pt plus 5cm}bool is\-\_\-\-Full\-\_\-\-Exp (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{input}
+\end{DoxyParamCaption}
+)}}\label{structin__exp__rebuilder_a7c37d43cdab0561cd430352c3e2d5edc}
+
+
+Check if the expression is full expression, with all the () supported or not. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em char} & $\ast$ the expression to be evaluated. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if there are enough () so that the expression does not need to be rebuilt. 
+\end{DoxyReturn}
+\hypertarget{structin__exp__rebuilder_abfaea167217154d8ca36509ffbe06cf5}{\index{in\-\_\-exp\-\_\-rebuilder@{in\-\_\-exp\-\_\-rebuilder}!is\-\_\-\-Valid\-\_\-\-Exp@{is\-\_\-\-Valid\-\_\-\-Exp}}
+\index{is\-\_\-\-Valid\-\_\-\-Exp@{is\-\_\-\-Valid\-\_\-\-Exp}!in_exp_rebuilder@{in\-\_\-exp\-\_\-rebuilder}}
+\subsubsection[{is\-\_\-\-Valid\-\_\-\-Exp}]{\setlength{\rightskip}{0pt plus 5cm}bool is\-\_\-\-Valid\-\_\-\-Exp (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{input}
+\end{DoxyParamCaption}
+)}}\label{structin__exp__rebuilder_abfaea167217154d8ca36509ffbe06cf5}
+
+
+Check if the expression is valid for rebuilding by checking the number of open brackets and close brackets. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em char$\ast$} & the expression to be evaluated. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the 2 types of brackets are equal. 
+\end{DoxyReturn}
+\hypertarget{structin__exp__rebuilder_a67d5706a4b5015411fea45aa77f2ea5f}{\index{in\-\_\-exp\-\_\-rebuilder@{in\-\_\-exp\-\_\-rebuilder}!rebuild\-\_\-in\-\_\-exp@{rebuild\-\_\-in\-\_\-exp}}
+\index{rebuild\-\_\-in\-\_\-exp@{rebuild\-\_\-in\-\_\-exp}!in_exp_rebuilder@{in\-\_\-exp\-\_\-rebuilder}}
+\subsubsection[{rebuild\-\_\-in\-\_\-exp}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ rebuild\-\_\-in\-\_\-exp (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{input}
+\end{DoxyParamCaption}
+)}}\label{structin__exp__rebuilder_a67d5706a4b5015411fea45aa77f2ea5f}
+
+
+Takes in an incompleted in-\/order expression and return the full in-\/order expression, with all the '(' and ')' needed to execute. 
+
+The result is allocated on the heap. 
+\begin{DoxyParams}{Parameters}
+{\em char$\ast$} & the incomplete expression to be evaluated. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a pointer to the complete version of the expression 
+\end{DoxyReturn}
+
+
+The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+in\-\_\-exp\-\_\-rebuilder.\-h\end{DoxyCompactItemize}

@@ -1,0 +1,103 @@
+\hypertarget{structrpn}{\section{rpn Struct Reference}
+\label{structrpn}\index{rpn@{rpn}}
+}
+
+
+Provides calculation of the R\-P\-N expressions.  
+
+
+
+
+{\ttfamily \#include $<$rpn.\-h$>$}
+
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structrpn_1_1variables__mapping}{variables\-\_\-mapping}
+\begin{DoxyCompactList}\small\item\em Implementation of a table to map the variable names to its values. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{structrpn_ae1904fb7b86d71a1770d3d156858ab59}{struct \hyperlink{structrpn_1_1variables__mapping}{rpn\-::variables\-\_\-mapping} \hyperlink{structrpn_ae1904fb7b86d71a1770d3d156858ab59}{rpn\-\_\-create\-Var\-List} ()}\label{structrpn_ae1904fb7b86d71a1770d3d156858ab59}
+
+\begin{DoxyCompactList}\small\item\em Create a variable table for the mapping of the variables may be used in the in-\/order processing. \end{DoxyCompactList}\item 
+int \hyperlink{structrpn_a866a739149e27f08393d67f1fb486b58}{rpn\-\_\-find\-\_\-var\-\_\-index} (char $\ast$name)
+\begin{DoxyCompactList}\small\item\em Find the variable in the variables table. \end{DoxyCompactList}\item 
+double \hyperlink{structrpn_abb8802e376ef7cbb360bdc50675b3cb5}{rpn\-\_\-get\-\_\-var\-\_\-value} (int index)
+\begin{DoxyCompactList}\small\item\em Use the index and retrieve the value of the variable in the variables table. \end{DoxyCompactList}\item 
+double \hyperlink{structrpn_a53f2b31140999a9a442076c23d358f1b}{rpn\-\_\-eval} (char $\ast$exp, char invalid\-Var\mbox{[}$\,$\mbox{]}, char other\-Exceptions\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Evaluate the expression and return the result. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Provides calculation of the R\-P\-N expressions. 
+
+\subsection{Member Function Documentation}
+\hypertarget{structrpn_a53f2b31140999a9a442076c23d358f1b}{\index{rpn@{rpn}!rpn\-\_\-eval@{rpn\-\_\-eval}}
+\index{rpn\-\_\-eval@{rpn\-\_\-eval}!rpn@{rpn}}
+\subsubsection[{rpn\-\_\-eval}]{\setlength{\rightskip}{0pt plus 5cm}double rpn\-\_\-eval (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{exp, }
+\item[{char}]{invalid\-Var\mbox{[}$\,$\mbox{]}, }
+\item[{char}]{other\-Exceptions\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{structrpn_a53f2b31140999a9a442076c23d358f1b}
+
+
+Evaluate the expression and return the result. 
+
+Any error occured will modify the 2 strings invalid\-Var and other\-Exceptions from \char`\"{}\char`\"{} to a text. 
+\begin{DoxyParams}{Parameters}
+{\em exp} & the expression to be evaluated. \\
+\hline
+{\em invalid\-Var} & String to notify if an invalid / undeclared variable is found. \\
+\hline
+{\em pther\-Exceptions} & String to notify other error, such as invalid expression. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the value of the expression. 
+\end{DoxyReturn}
+\hypertarget{structrpn_a866a739149e27f08393d67f1fb486b58}{\index{rpn@{rpn}!rpn\-\_\-find\-\_\-var\-\_\-index@{rpn\-\_\-find\-\_\-var\-\_\-index}}
+\index{rpn\-\_\-find\-\_\-var\-\_\-index@{rpn\-\_\-find\-\_\-var\-\_\-index}!rpn@{rpn}}
+\subsubsection[{rpn\-\_\-find\-\_\-var\-\_\-index}]{\setlength{\rightskip}{0pt plus 5cm}int rpn\-\_\-find\-\_\-var\-\_\-index (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}}\label{structrpn_a866a739149e27f08393d67f1fb486b58}
+
+
+Find the variable in the variables table. 
+
+This function will return the index of the variable if it is found. If nothing is found, the function returns -\/1. 
+\begin{DoxyParams}{Parameters}
+{\em name} & the variable name to find. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the index of the variable. 
+\end{DoxyReturn}
+\hypertarget{structrpn_abb8802e376ef7cbb360bdc50675b3cb5}{\index{rpn@{rpn}!rpn\-\_\-get\-\_\-var\-\_\-value@{rpn\-\_\-get\-\_\-var\-\_\-value}}
+\index{rpn\-\_\-get\-\_\-var\-\_\-value@{rpn\-\_\-get\-\_\-var\-\_\-value}!rpn@{rpn}}
+\subsubsection[{rpn\-\_\-get\-\_\-var\-\_\-value}]{\setlength{\rightskip}{0pt plus 5cm}double rpn\-\_\-get\-\_\-var\-\_\-value (
+\begin{DoxyParamCaption}
+\item[{int}]{index}
+\end{DoxyParamCaption}
+)}}\label{structrpn_abb8802e376ef7cbb360bdc50675b3cb5}
+
+
+Use the index and retrieve the value of the variable in the variables table. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & index of the variable name to retrieve value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the value of the variable. 
+\end{DoxyReturn}
+
+
+The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+rpn.\-h\end{DoxyCompactItemize}

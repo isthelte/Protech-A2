@@ -1,0 +1,209 @@
+\hypertarget{operators_8h}{\section{operators.\-h File Reference}
+\label{operators_8h}\index{operators.\-h@{operators.\-h}}
+}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{operators_8h_ae0d6d40c5f0dbdd444b0d6e51b224b6f}{add} (double a, double b)
+\item 
+double \hyperlink{operators_8h_ada39d64c0a621fe571f02b95d418c776}{minus} (double a, double b)
+\item 
+double \hyperlink{operators_8h_ac949e69d65ab7d1987f3dd728e6d259a}{multiply} (double a, double b)
+\item 
+double \hyperlink{operators_8h_a8735ddf3ac69922839b5a2151bc7bb53}{divide} (double a, double b)
+\item 
+double \hyperlink{operators_8h_aa9a057291e79666d3537e65bab80b8c6}{power} (double a, double b)
+\item 
+double \hyperlink{operators_8h_a7575806aae652de5c2c662d800107f5d}{maximum} (double a, double b)
+\item 
+double \hyperlink{operators_8h_a58219a09de375e355a4cfdad5770ef6c}{minimum} (double a, double b)
+\item 
+double \hyperlink{operators_8h_ae73d813670287effead12dc193c041b4}{distance} (double a, double b)
+\item 
+int \hyperlink{operators_8h_ad69fa2584c04547b1b90e58a619abe6e}{find\-\_\-operation} (char $\ast$operator)
+\item 
+double \hyperlink{operators_8h_a5e40dca2feed518d53ecd7b99bdab518}{execute\-\_\-operation} (char $\ast$operation, double a, double b)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{operators_8h_ae0d6d40c5f0dbdd444b0d6e51b224b6f}{\index{operators.\-h@{operators.\-h}!add@{add}}
+\index{add@{add}!operators.h@{operators.\-h}}
+\subsubsection[{add}]{\setlength{\rightskip}{0pt plus 5cm}double add (
+\begin{DoxyParamCaption}
+\item[{double}]{a, }
+\item[{double}]{b}
+\end{DoxyParamCaption}
+)}}\label{operators_8h_ae0d6d40c5f0dbdd444b0d6e51b224b6f}
+Add two numbers. 
+\begin{DoxyParams}{Parameters}
+{\em a} & the first operand. \\
+\hline
+{\em b} & the second operand \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the result. 
+\end{DoxyReturn}
+\hypertarget{operators_8h_ae73d813670287effead12dc193c041b4}{\index{operators.\-h@{operators.\-h}!distance@{distance}}
+\index{distance@{distance}!operators.h@{operators.\-h}}
+\subsubsection[{distance}]{\setlength{\rightskip}{0pt plus 5cm}double distance (
+\begin{DoxyParamCaption}
+\item[{double}]{a, }
+\item[{double}]{b}
+\end{DoxyParamCaption}
+)}}\label{operators_8h_ae73d813670287effead12dc193c041b4}
+Find the absolute distance between two numbers (or $|$ a -\/ b $|$). 
+\begin{DoxyParams}{Parameters}
+{\em a} & the first operand. \\
+\hline
+{\em b} & the second operand \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the result. 
+\end{DoxyReturn}
+\hypertarget{operators_8h_a8735ddf3ac69922839b5a2151bc7bb53}{\index{operators.\-h@{operators.\-h}!divide@{divide}}
+\index{divide@{divide}!operators.h@{operators.\-h}}
+\subsubsection[{divide}]{\setlength{\rightskip}{0pt plus 5cm}double divide (
+\begin{DoxyParamCaption}
+\item[{double}]{a, }
+\item[{double}]{b}
+\end{DoxyParamCaption}
+)}}\label{operators_8h_a8735ddf3ac69922839b5a2151bc7bb53}
+Divide two numbers. 
+\begin{DoxyParams}{Parameters}
+{\em a} & the first operand. \\
+\hline
+{\em b} & the second operand \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the result. 
+\end{DoxyReturn}
+\hypertarget{operators_8h_a5e40dca2feed518d53ecd7b99bdab518}{\index{operators.\-h@{operators.\-h}!execute\-\_\-operation@{execute\-\_\-operation}}
+\index{execute\-\_\-operation@{execute\-\_\-operation}!operators.h@{operators.\-h}}
+\subsubsection[{execute\-\_\-operation}]{\setlength{\rightskip}{0pt plus 5cm}double execute\-\_\-operation (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{operation, }
+\item[{double}]{a, }
+\item[{double}]{b}
+\end{DoxyParamCaption}
+)}}\label{operators_8h_a5e40dca2feed518d53ecd7b99bdab518}
+Execute the operation on the 2 operands based on the given operator 
+\begin{DoxyParams}{Parameters}
+{\em operation} & the operator to determine the operation. \\
+\hline
+{\em a} & the first operand \\
+\hline
+{\em b} & the second operand \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the result. 
+\end{DoxyReturn}
+\hypertarget{operators_8h_ad69fa2584c04547b1b90e58a619abe6e}{\index{operators.\-h@{operators.\-h}!find\-\_\-operation@{find\-\_\-operation}}
+\index{find\-\_\-operation@{find\-\_\-operation}!operators.h@{operators.\-h}}
+\subsubsection[{find\-\_\-operation}]{\setlength{\rightskip}{0pt plus 5cm}int find\-\_\-operation (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{operator}
+\end{DoxyParamCaption}
+)}}\label{operators_8h_ad69fa2584c04547b1b90e58a619abe6e}
+Find the operator in the list of possible operations. If nothing is found, this function returns -\/1. 
+\begin{DoxyParams}{Parameters}
+{\em operator} & the operator to find. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the index of the operator in the array. 
+\end{DoxyReturn}
+\hypertarget{operators_8h_a7575806aae652de5c2c662d800107f5d}{\index{operators.\-h@{operators.\-h}!maximum@{maximum}}
+\index{maximum@{maximum}!operators.h@{operators.\-h}}
+\subsubsection[{maximum}]{\setlength{\rightskip}{0pt plus 5cm}double maximum (
+\begin{DoxyParamCaption}
+\item[{double}]{a, }
+\item[{double}]{b}
+\end{DoxyParamCaption}
+)}}\label{operators_8h_a7575806aae652de5c2c662d800107f5d}
+Find the maximum between two numbers. 
+\begin{DoxyParams}{Parameters}
+{\em a} & the first operand. \\
+\hline
+{\em b} & the second operand \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the result. 
+\end{DoxyReturn}
+\hypertarget{operators_8h_a58219a09de375e355a4cfdad5770ef6c}{\index{operators.\-h@{operators.\-h}!minimum@{minimum}}
+\index{minimum@{minimum}!operators.h@{operators.\-h}}
+\subsubsection[{minimum}]{\setlength{\rightskip}{0pt plus 5cm}double minimum (
+\begin{DoxyParamCaption}
+\item[{double}]{a, }
+\item[{double}]{b}
+\end{DoxyParamCaption}
+)}}\label{operators_8h_a58219a09de375e355a4cfdad5770ef6c}
+Find the minimum between two numbers. 
+\begin{DoxyParams}{Parameters}
+{\em a} & the first operand. \\
+\hline
+{\em b} & the second operand \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the result. 
+\end{DoxyReturn}
+\hypertarget{operators_8h_ada39d64c0a621fe571f02b95d418c776}{\index{operators.\-h@{operators.\-h}!minus@{minus}}
+\index{minus@{minus}!operators.h@{operators.\-h}}
+\subsubsection[{minus}]{\setlength{\rightskip}{0pt plus 5cm}double minus (
+\begin{DoxyParamCaption}
+\item[{double}]{a, }
+\item[{double}]{b}
+\end{DoxyParamCaption}
+)}}\label{operators_8h_ada39d64c0a621fe571f02b95d418c776}
+Substract two numbers. 
+\begin{DoxyParams}{Parameters}
+{\em a} & the first operand. \\
+\hline
+{\em b} & the second operand \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the result. 
+\end{DoxyReturn}
+\hypertarget{operators_8h_ac949e69d65ab7d1987f3dd728e6d259a}{\index{operators.\-h@{operators.\-h}!multiply@{multiply}}
+\index{multiply@{multiply}!operators.h@{operators.\-h}}
+\subsubsection[{multiply}]{\setlength{\rightskip}{0pt plus 5cm}double multiply (
+\begin{DoxyParamCaption}
+\item[{double}]{a, }
+\item[{double}]{b}
+\end{DoxyParamCaption}
+)}}\label{operators_8h_ac949e69d65ab7d1987f3dd728e6d259a}
+Multiply two numbers. 
+\begin{DoxyParams}{Parameters}
+{\em a} & the first operand. \\
+\hline
+{\em b} & the second operand \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the result. 
+\end{DoxyReturn}
+\hypertarget{operators_8h_aa9a057291e79666d3537e65bab80b8c6}{\index{operators.\-h@{operators.\-h}!power@{power}}
+\index{power@{power}!operators.h@{operators.\-h}}
+\subsubsection[{power}]{\setlength{\rightskip}{0pt plus 5cm}double power (
+\begin{DoxyParamCaption}
+\item[{double}]{a, }
+\item[{double}]{b}
+\end{DoxyParamCaption}
+)}}\label{operators_8h_aa9a057291e79666d3537e65bab80b8c6}
+Calculate the power of the first number to the second number. 
+\begin{DoxyParams}{Parameters}
+{\em a} & the first operand. \\
+\hline
+{\em b} & the second operand \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the result. 
+\end{DoxyReturn}

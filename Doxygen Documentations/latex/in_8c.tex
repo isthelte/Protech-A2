@@ -1,0 +1,94 @@
+\hypertarget{in_8c}{\section{in.\-c File Reference}
+\label{in_8c}\index{in.\-c@{in.\-c}}
+}
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include $<$string.\-h$>$}\\*
+{\ttfamily \#include $<$stdbool.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}in.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}stack.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}operators.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}variables\-\_\-mapping.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{in_8c_a16d2af0ff491ec3739a652eac515163a}{in\-\_\-create\-Var\-List} ()
+\item 
+int \hyperlink{in_8c_a2611e45a71ad35f7d48a1af1bfd2aa6f}{in\-\_\-find\-\_\-var\-\_\-index} (char $\ast$name)
+\item 
+double \hyperlink{in_8c_a58a044aea41ec49969df9ebb88c1306b}{in\-\_\-get\-\_\-var\-\_\-value} (int index)
+\item 
+double \hyperlink{in_8c_a9f89619ddc7bb71bce7e5903f095eb61}{in\-\_\-eval} (char $\ast$exp, char invalid\-Var\mbox{[}$\,$\mbox{]}, char other\-Exceptions\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structtable}{table} $\ast$ \hyperlink{in_8c_a885fd44a0ea4c559905ebd9a38c7c4ec}{var\-\_\-\-List}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{in_8c_a16d2af0ff491ec3739a652eac515163a}{\index{in.\-c@{in.\-c}!in\-\_\-create\-Var\-List@{in\-\_\-create\-Var\-List}}
+\index{in\-\_\-create\-Var\-List@{in\-\_\-create\-Var\-List}!in.c@{in.\-c}}
+\subsubsection[{in\-\_\-create\-Var\-List}]{\setlength{\rightskip}{0pt plus 5cm}void in\-\_\-create\-Var\-List (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{in_8c_a16d2af0ff491ec3739a652eac515163a}
+Create a variable table for the mapping of the variables may be used in the in-\/order processing \hypertarget{in_8c_a9f89619ddc7bb71bce7e5903f095eb61}{\index{in.\-c@{in.\-c}!in\-\_\-eval@{in\-\_\-eval}}
+\index{in\-\_\-eval@{in\-\_\-eval}!in.c@{in.\-c}}
+\subsubsection[{in\-\_\-eval}]{\setlength{\rightskip}{0pt plus 5cm}double in\-\_\-eval (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{exp, }
+\item[{char}]{invalid\-Var\mbox{[}$\,$\mbox{]}, }
+\item[{char}]{other\-Exceptions\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{in_8c_a9f89619ddc7bb71bce7e5903f095eb61}
+Evaluate the expression and return the result. Any error occured will modify the 2 strings invalid\-Var and other\-Exceptions from \char`\"{}\char`\"{} to a text. 
+\begin{DoxyParams}{Parameters}
+{\em exp} & the expression to be evaluated. \\
+\hline
+{\em invalid\-Var} & String to notify if an invalid / undeclared variable is found. \\
+\hline
+{\em pther\-Exceptions} & String to notify other error, such as invalid expression. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the value of the expression. 
+\end{DoxyReturn}
+copy, \hypertarget{in_8c_a2611e45a71ad35f7d48a1af1bfd2aa6f}{\index{in.\-c@{in.\-c}!in\-\_\-find\-\_\-var\-\_\-index@{in\-\_\-find\-\_\-var\-\_\-index}}
+\index{in\-\_\-find\-\_\-var\-\_\-index@{in\-\_\-find\-\_\-var\-\_\-index}!in.c@{in.\-c}}
+\subsubsection[{in\-\_\-find\-\_\-var\-\_\-index}]{\setlength{\rightskip}{0pt plus 5cm}int in\-\_\-find\-\_\-var\-\_\-index (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}}\label{in_8c_a2611e45a71ad35f7d48a1af1bfd2aa6f}
+Find the variable in the variables table. This function will return the index of the variable if it is found. If nothing is found, the function returns -\/1. 
+\begin{DoxyParams}{Parameters}
+{\em name} & the variable name to find. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the index of the variable. 
+\end{DoxyReturn}
+\hypertarget{in_8c_a58a044aea41ec49969df9ebb88c1306b}{\index{in.\-c@{in.\-c}!in\-\_\-get\-\_\-var\-\_\-value@{in\-\_\-get\-\_\-var\-\_\-value}}
+\index{in\-\_\-get\-\_\-var\-\_\-value@{in\-\_\-get\-\_\-var\-\_\-value}!in.c@{in.\-c}}
+\subsubsection[{in\-\_\-get\-\_\-var\-\_\-value}]{\setlength{\rightskip}{0pt plus 5cm}double in\-\_\-get\-\_\-var\-\_\-value (
+\begin{DoxyParamCaption}
+\item[{int}]{index}
+\end{DoxyParamCaption}
+)}}\label{in_8c_a58a044aea41ec49969df9ebb88c1306b}
+Use the index and retrieve the value of the variable in the variables table. 
+\begin{DoxyParams}{Parameters}
+{\em index} & of the variable name to retrieve value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the value of the variable. 
+\end{DoxyReturn}
+
+
+\subsection{Variable Documentation}
+\hypertarget{in_8c_a885fd44a0ea4c559905ebd9a38c7c4ec}{\index{in.\-c@{in.\-c}!var\-\_\-\-List@{var\-\_\-\-List}}
+\index{var\-\_\-\-List@{var\-\_\-\-List}!in.c@{in.\-c}}
+\subsubsection[{var\-\_\-\-List}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf table}$\ast$ var\-\_\-\-List}}\label{in_8c_a885fd44a0ea4c559905ebd9a38c7c4ec}

@@ -1,0 +1,103 @@
+\hypertarget{structin}{\section{in Struct Reference}
+\label{structin}\index{in@{in}}
+}
+
+
+Provides calculation of the in-\/order expressions.  
+
+
+
+
+{\ttfamily \#include $<$in.\-h$>$}
+
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structin_1_1variables__mapping}{variables\-\_\-mapping}
+\begin{DoxyCompactList}\small\item\em Implementation of a table to map the variable names to its values. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{structin_a3c7d1247103c2f7c856f2b302761e358}{struct \hyperlink{structin_1_1variables__mapping}{in\-::variables\-\_\-mapping} \hyperlink{structin_a3c7d1247103c2f7c856f2b302761e358}{in\-\_\-create\-Var\-List} ()}\label{structin_a3c7d1247103c2f7c856f2b302761e358}
+
+\begin{DoxyCompactList}\small\item\em Create a variable table for the mapping of the variables may be used in the in-\/order processing. \end{DoxyCompactList}\item 
+int \hyperlink{structin_a2611e45a71ad35f7d48a1af1bfd2aa6f}{in\-\_\-find\-\_\-var\-\_\-index} (char $\ast$name)
+\begin{DoxyCompactList}\small\item\em Find the variable in the variables table. \end{DoxyCompactList}\item 
+double \hyperlink{structin_a58a044aea41ec49969df9ebb88c1306b}{in\-\_\-get\-\_\-var\-\_\-value} (int index)
+\begin{DoxyCompactList}\small\item\em Use the index and retrieve the value of the variable in the variables table. \end{DoxyCompactList}\item 
+double \hyperlink{structin_a9f89619ddc7bb71bce7e5903f095eb61}{in\-\_\-eval} (char $\ast$exp, char invalid\-Var\mbox{[}$\,$\mbox{]}, char other\-Exceptions\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Evaluate the expression and return the result. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Provides calculation of the in-\/order expressions. 
+
+\subsection{Member Function Documentation}
+\hypertarget{structin_a9f89619ddc7bb71bce7e5903f095eb61}{\index{in@{in}!in\-\_\-eval@{in\-\_\-eval}}
+\index{in\-\_\-eval@{in\-\_\-eval}!in@{in}}
+\subsubsection[{in\-\_\-eval}]{\setlength{\rightskip}{0pt plus 5cm}double in\-\_\-eval (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{exp, }
+\item[{char}]{invalid\-Var\mbox{[}$\,$\mbox{]}, }
+\item[{char}]{other\-Exceptions\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{structin_a9f89619ddc7bb71bce7e5903f095eb61}
+
+
+Evaluate the expression and return the result. 
+
+Any error occured will modify the 2 strings invalid\-Var and other\-Exceptions from \char`\"{}\char`\"{} to a text. 
+\begin{DoxyParams}{Parameters}
+{\em exp} & the expression to be evaluated. \\
+\hline
+{\em invalid\-Var} & String to notify if an invalid / undeclared variable is found. \\
+\hline
+{\em pther\-Exceptions} & String to notify other error, such as invalid expression. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the value of the expression. 
+\end{DoxyReturn}
+\hypertarget{structin_a2611e45a71ad35f7d48a1af1bfd2aa6f}{\index{in@{in}!in\-\_\-find\-\_\-var\-\_\-index@{in\-\_\-find\-\_\-var\-\_\-index}}
+\index{in\-\_\-find\-\_\-var\-\_\-index@{in\-\_\-find\-\_\-var\-\_\-index}!in@{in}}
+\subsubsection[{in\-\_\-find\-\_\-var\-\_\-index}]{\setlength{\rightskip}{0pt plus 5cm}int in\-\_\-find\-\_\-var\-\_\-index (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}}\label{structin_a2611e45a71ad35f7d48a1af1bfd2aa6f}
+
+
+Find the variable in the variables table. 
+
+This function will return the index of the variable if it is found. If nothing is found, the function returns -\/1. 
+\begin{DoxyParams}{Parameters}
+{\em name} & the variable name to find. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the index of the variable. 
+\end{DoxyReturn}
+\hypertarget{structin_a58a044aea41ec49969df9ebb88c1306b}{\index{in@{in}!in\-\_\-get\-\_\-var\-\_\-value@{in\-\_\-get\-\_\-var\-\_\-value}}
+\index{in\-\_\-get\-\_\-var\-\_\-value@{in\-\_\-get\-\_\-var\-\_\-value}!in@{in}}
+\subsubsection[{in\-\_\-get\-\_\-var\-\_\-value}]{\setlength{\rightskip}{0pt plus 5cm}double in\-\_\-get\-\_\-var\-\_\-value (
+\begin{DoxyParamCaption}
+\item[{int}]{index}
+\end{DoxyParamCaption}
+)}}\label{structin_a58a044aea41ec49969df9ebb88c1306b}
+
+
+Use the index and retrieve the value of the variable in the variables table. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & of the variable name to retrieve value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the value of the variable. 
+\end{DoxyReturn}
+
+
+The documentation for this struct was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+in.\-h\end{DoxyCompactItemize}

@@ -1,0 +1,135 @@
+\hypertarget{variables__mapping_8h}{\section{variables\-\_\-mapping.\-h File Reference}
+\label{variables__mapping_8h}\index{variables\-\_\-mapping.\-h@{variables\-\_\-mapping.\-h}}
+}
+{\ttfamily \#include $<$stdbool.\-h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structtable}{table}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{variables__mapping_8h_a70ed59adcb4159ac551058053e649640}{S\-I\-Z\-E}~5
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structtable}{table} $\ast$ \hyperlink{variables__mapping_8h_ab503738b12da9699f738b06dd5980a79}{create\-Table} ()
+\item 
+int \hyperlink{variables__mapping_8h_a5ff1a21014a9b91aa5be5520ab5a03e8}{find\-\_\-variable} (struct \hyperlink{structtable}{table} $\ast$t, char $\ast$name)
+\item 
+void \hyperlink{variables__mapping_8h_adca41d85e31cf5bb5bc8fa8b80d49133}{table\-\_\-resize} (struct \hyperlink{structtable}{table} $\ast$t)
+\item 
+void \hyperlink{variables__mapping_8h_a68364304f09958f0f1c4dde6e5be4136}{add\-\_\-variable} (struct \hyperlink{structtable}{table} $\ast$t, char $\ast$name, double value)
+\item 
+double \hyperlink{variables__mapping_8h_a3d29a778da21411f9700186776a22f30}{get\-\_\-variable} (struct \hyperlink{structtable}{table} $\ast$t, int var\-\_\-index)
+\item 
+void \hyperlink{variables__mapping_8h_ad2b30aa08b387f650926960f30cd7597}{edit\-\_\-variable} (struct \hyperlink{structtable}{table} $\ast$t, int var\-\_\-index, double new\-Value)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{variables__mapping_8h_a70ed59adcb4159ac551058053e649640}{\index{variables\-\_\-mapping.\-h@{variables\-\_\-mapping.\-h}!S\-I\-Z\-E@{S\-I\-Z\-E}}
+\index{S\-I\-Z\-E@{S\-I\-Z\-E}!variables_mapping.h@{variables\-\_\-mapping.\-h}}
+\subsubsection[{S\-I\-Z\-E}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\-I\-Z\-E~5}}\label{variables__mapping_8h_a70ed59adcb4159ac551058053e649640}
+
+
+\subsection{Function Documentation}
+\hypertarget{variables__mapping_8h_a68364304f09958f0f1c4dde6e5be4136}{\index{variables\-\_\-mapping.\-h@{variables\-\_\-mapping.\-h}!add\-\_\-variable@{add\-\_\-variable}}
+\index{add\-\_\-variable@{add\-\_\-variable}!variables_mapping.h@{variables\-\_\-mapping.\-h}}
+\subsubsection[{add\-\_\-variable}]{\setlength{\rightskip}{0pt plus 5cm}void add\-\_\-variable (
+\begin{DoxyParamCaption}
+\item[{struct {\bf table} $\ast$}]{t, }
+\item[{char $\ast$}]{name, }
+\item[{double}]{value}
+\end{DoxyParamCaption}
+)}}\label{variables__mapping_8h_a68364304f09958f0f1c4dde6e5be4136}
+Add a variable to the table 
+\begin{DoxyParams}{Parameters}
+{\em t} & the pointer to the table. \\
+\hline
+{\em name} & the variable name. \\
+\hline
+{\em value} & the variable's value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the index of the variable in the table. 
+\end{DoxyReturn}
+\hypertarget{variables__mapping_8h_ab503738b12da9699f738b06dd5980a79}{\index{variables\-\_\-mapping.\-h@{variables\-\_\-mapping.\-h}!create\-Table@{create\-Table}}
+\index{create\-Table@{create\-Table}!variables_mapping.h@{variables\-\_\-mapping.\-h}}
+\subsubsection[{create\-Table}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf table}$\ast$ create\-Table (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{variables__mapping_8h_ab503738b12da9699f738b06dd5980a79}
+Initialize a variable table for the mapping of the variables may be used in the in-\/order / R\-P\-N processing. By default, the size of this table is 5 \begin{DoxyReturn}{Returns}
+the pointer to the table. 
+\end{DoxyReturn}
+\hypertarget{variables__mapping_8h_ad2b30aa08b387f650926960f30cd7597}{\index{variables\-\_\-mapping.\-h@{variables\-\_\-mapping.\-h}!edit\-\_\-variable@{edit\-\_\-variable}}
+\index{edit\-\_\-variable@{edit\-\_\-variable}!variables_mapping.h@{variables\-\_\-mapping.\-h}}
+\subsubsection[{edit\-\_\-variable}]{\setlength{\rightskip}{0pt plus 5cm}void edit\-\_\-variable (
+\begin{DoxyParamCaption}
+\item[{struct {\bf table} $\ast$}]{t, }
+\item[{int}]{var\-\_\-index, }
+\item[{double}]{new\-Value}
+\end{DoxyParamCaption}
+)}}\label{variables__mapping_8h_ad2b30aa08b387f650926960f30cd7597}
+Modify the value of a variable in the table 
+\begin{DoxyParams}{Parameters}
+{\em t} & the pointer to the table. \\
+\hline
+{\em var\-\_\-index} & the index of the variable in the table. \\
+\hline
+{\em new\-Value} & the new value of the variable. \\
+\hline
+\end{DoxyParams}
+\hypertarget{variables__mapping_8h_a5ff1a21014a9b91aa5be5520ab5a03e8}{\index{variables\-\_\-mapping.\-h@{variables\-\_\-mapping.\-h}!find\-\_\-variable@{find\-\_\-variable}}
+\index{find\-\_\-variable@{find\-\_\-variable}!variables_mapping.h@{variables\-\_\-mapping.\-h}}
+\subsubsection[{find\-\_\-variable}]{\setlength{\rightskip}{0pt plus 5cm}int find\-\_\-variable (
+\begin{DoxyParamCaption}
+\item[{struct {\bf table} $\ast$}]{t, }
+\item[{char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}}\label{variables__mapping_8h_a5ff1a21014a9b91aa5be5520ab5a03e8}
+Look up a variable name in the variable table This function returns the index of the variable in the table (if found). If nothing is found, this function returns -\/1. 
+\begin{DoxyParams}{Parameters}
+{\em t} & the pointer to the table. \\
+\hline
+{\em name} & the variable name to look up. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the index of the variable in the table. 
+\end{DoxyReturn}
+\hypertarget{variables__mapping_8h_a3d29a778da21411f9700186776a22f30}{\index{variables\-\_\-mapping.\-h@{variables\-\_\-mapping.\-h}!get\-\_\-variable@{get\-\_\-variable}}
+\index{get\-\_\-variable@{get\-\_\-variable}!variables_mapping.h@{variables\-\_\-mapping.\-h}}
+\subsubsection[{get\-\_\-variable}]{\setlength{\rightskip}{0pt plus 5cm}double get\-\_\-variable (
+\begin{DoxyParamCaption}
+\item[{struct {\bf table} $\ast$}]{t, }
+\item[{int}]{var\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{variables__mapping_8h_a3d29a778da21411f9700186776a22f30}
+Retrieve the value of a variable at the specified index 
+\begin{DoxyParams}{Parameters}
+{\em t} & the pointer to the table. \\
+\hline
+{\em var\-\_\-index} & the index of the variable in the table. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the value of the variable in the table. 
+\end{DoxyReturn}
+\hypertarget{variables__mapping_8h_adca41d85e31cf5bb5bc8fa8b80d49133}{\index{variables\-\_\-mapping.\-h@{variables\-\_\-mapping.\-h}!table\-\_\-resize@{table\-\_\-resize}}
+\index{table\-\_\-resize@{table\-\_\-resize}!variables_mapping.h@{variables\-\_\-mapping.\-h}}
+\subsubsection[{table\-\_\-resize}]{\setlength{\rightskip}{0pt plus 5cm}void table\-\_\-resize (
+\begin{DoxyParamCaption}
+\item[{struct {\bf table} $\ast$}]{t}
+\end{DoxyParamCaption}
+)}}\label{variables__mapping_8h_adca41d85e31cf5bb5bc8fa8b80d49133}
+Resize the table to a new size The new size is equal to the old size + 5 
+\begin{DoxyParams}{Parameters}
+{\em t} & the pointer to the table. \\
+\hline
+\end{DoxyParams}

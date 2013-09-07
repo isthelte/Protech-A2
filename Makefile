@@ -23,4 +23,5 @@ clean:
 	
 .PHONY: cleanall
 cleanall:
-	rm *.o *~ $(EXECS)
+	rm *.o 
+	rm calc

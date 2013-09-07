@@ -85,16 +85,25 @@ bool is_Full_Exp(char * input){
 
 int find_string(char * input, char * toFind, int index_larger_than){	
 
-	for (int i = 0; i < strlen(input); ++i)
-	{
-		if (strlen(toFind) == 1){
+	//Make one exception for the '=' operator: index_larger_than is treated as "index_smaller_than" -v-''
+	if (strlen(toFind) == 1){ //This must be the equal sign "=", trust me!
 
-			if (input[i] == toFind[0] && i >= index_larger_than + 1){
+		//printf("index larger = %i\n", index_larger_than );
+
+		for (int i = strlen(input); i > 0; --i)
+		{
+			//printf("%c(%i) is compared to %c(%i)\n", input[i], i, toFind[0], 0 );
+
+			if (input[i] == toFind[0] && i <= index_larger_than + 1){
 				return i;
 			}
+		}
 
-		} else {
+	} else { //This is the other ... operators
 
+		for (int i = 0; i < strlen(input); ++i)
+		{
+			
 			if (toFind[1] == ','){ //We know we're dealing with 2 operators
 
 				//Add this to support 2 operators at the same time!
@@ -108,11 +117,11 @@ int find_string(char * input, char * toFind, int index_larger_than){
 				if (input[i] == toFind[0] && input[i+1] == toFind[1] && i >= index_larger_than + 2){
 					return i;
 				}
-			}
-
+			}		
+			
 		}
-		
-	}
+
+	}	
 
 	return -1;
 
@@ -198,7 +207,7 @@ void insert_char_before_index(char * input, int after_index, char char_to_insert
 
 void add_bracket_pairs(char * input, char * operator){
 	
-	int checkpoint = 0;
+	int checkpoint = (operator[0] != '=') ? 0 : strlen(input) - 1;
 
 	do
 	{
@@ -263,7 +272,7 @@ void add_bracket_pairs(char * input, char * operator){
 				input[go_forward_index + 1] = '\0'; //End the string
 			} else {
 				//If we're not at the end, then it's easy:
-				//Just insert the ')' before the token we're currently standing
+				//Just insert the ')' before the token we're currently accessing
 				insert_char_before_index(input, go_forward_index, ')');				
 			}
 			
@@ -319,7 +328,9 @@ void add_bracket_pairs(char * input, char * operator){
 
 			//printf("New length is: %i\n\n", strlen(input));				
 
-			checkpoint += 2; //Of course, adding a '(' and a space will 'push' the checkpoint to the right by 2 slots
+			//Of course, adding a '(' and a space will 'push' the checkpoint to the right by 2 slots
+			//This, however, is not relevant to the '=' operator, since it is processed from right to left
+			checkpoint += (operator[0] != '=') ? 2 : 0; 
 
 		}
 
@@ -353,6 +364,7 @@ char * rebuild_in_exp(char * input){
 
 }
 
+//Uncomment the below if you want to re-test this feature one day ....
 /*
 int main(){
 	

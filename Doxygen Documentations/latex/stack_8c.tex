@@ -1,0 +1,164 @@
+\hypertarget{stack_8c}{\section{stack.\-c File Reference}
+\label{stack_8c}\index{stack.\-c@{stack.\-c}}
+}
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include $<$string.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}stack.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structelement}{element} $\ast$ \hyperlink{stack_8c_ab9ca4e2e8bb8a7dae2e1891d77bcf4c4}{create\-\_\-node\-\_\-number} (double value)
+\begin{DoxyCompactList}\small\item\em Create a nunber node Create a node of type element to hold a number (double) This function also returns the pointer to that node. \end{DoxyCompactList}\item 
+struct \hyperlink{structelement}{element} $\ast$ \hyperlink{stack_8c_af2a10c10471e628cd129d6d851d2fc11}{create\-\_\-node\-\_\-operator} (char $\ast$value)
+\item 
+struct \hyperlink{structstack}{stack} $\ast$ \hyperlink{stack_8c_a5ffff21dd2d1460c654edb7c8c54945b}{create\-\_\-stack} (int length)
+\item 
+void \hyperlink{stack_8c_ab5ead2093b4871d147ce22ede36de84f}{free\-\_\-stack} (struct \hyperlink{structstack}{stack} $\ast$s)
+\item 
+void \hyperlink{stack_8c_ac25c7501ee0d028a1a2a8ed08c737750}{push} (struct \hyperlink{structstack}{stack} $\ast$s, struct \hyperlink{structelement}{element} $\ast$e)
+\item 
+struct \hyperlink{structelement}{element} $\ast$ \hyperlink{stack_8c_a74694fb01344536f1f39e31cac67d6ad}{peek} (struct \hyperlink{structstack}{stack} $\ast$s)
+\item 
+struct \hyperlink{structelement}{element} $\ast$ \hyperlink{stack_8c_a2a99ce490458ccef632cee629920aa6d}{pop} (struct \hyperlink{structstack}{stack} $\ast$s)
+\item 
+void \hyperlink{stack_8c_a1959e1dd1a8515d62f235ec1537e656a}{resize} (struct \hyperlink{structstack}{stack} $\ast$s, int new\-\_\-length)
+\item 
+void \hyperlink{stack_8c_a38ccd798635f5e46e8fb4ff83f1ae0e6}{print\-\_\-stack} (struct \hyperlink{structstack}{stack} $\ast$s)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{stack_8c_ab9ca4e2e8bb8a7dae2e1891d77bcf4c4}{\index{stack.\-c@{stack.\-c}!create\-\_\-node\-\_\-number@{create\-\_\-node\-\_\-number}}
+\index{create\-\_\-node\-\_\-number@{create\-\_\-node\-\_\-number}!stack.c@{stack.\-c}}
+\subsubsection[{create\-\_\-node\-\_\-number}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf element}$\ast$ create\-\_\-node\-\_\-number (
+\begin{DoxyParamCaption}
+\item[{double}]{value}
+\end{DoxyParamCaption}
+)}}\label{stack_8c_ab9ca4e2e8bb8a7dae2e1891d77bcf4c4}
+
+
+Create a nunber node Create a node of type element to hold a number (double) This function also returns the pointer to that node. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & the value of the number in the node. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the pointer to the node. 
+\end{DoxyReturn}
+\hypertarget{stack_8c_af2a10c10471e628cd129d6d851d2fc11}{\index{stack.\-c@{stack.\-c}!create\-\_\-node\-\_\-operator@{create\-\_\-node\-\_\-operator}}
+\index{create\-\_\-node\-\_\-operator@{create\-\_\-node\-\_\-operator}!stack.c@{stack.\-c}}
+\subsubsection[{create\-\_\-node\-\_\-operator}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf element}$\ast$ create\-\_\-node\-\_\-operator (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{value}
+\end{DoxyParamCaption}
+)}}\label{stack_8c_af2a10c10471e628cd129d6d851d2fc11}
+Create a node of type element to hold an operator (char $\ast$) This function also returns the pointer to that node. 
+\begin{DoxyParams}{Parameters}
+{\em value} & the operator in the node. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the pointer to the node. 
+\end{DoxyReturn}
+\hypertarget{stack_8c_a5ffff21dd2d1460c654edb7c8c54945b}{\index{stack.\-c@{stack.\-c}!create\-\_\-stack@{create\-\_\-stack}}
+\index{create\-\_\-stack@{create\-\_\-stack}!stack.c@{stack.\-c}}
+\subsubsection[{create\-\_\-stack}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf stack}$\ast$ create\-\_\-stack (
+\begin{DoxyParamCaption}
+\item[{int}]{length}
+\end{DoxyParamCaption}
+)}}\label{stack_8c_a5ffff21dd2d1460c654edb7c8c54945b}
+Create a stack of the S\-I\-Z\-E given This function also returns the pointer to that stack. 
+\begin{DoxyParams}{Parameters}
+{\em length} & the S\-I\-Z\-E of the stack. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the pointer to the stack. 
+\end{DoxyReturn}
+\hypertarget{stack_8c_ab5ead2093b4871d147ce22ede36de84f}{\index{stack.\-c@{stack.\-c}!free\-\_\-stack@{free\-\_\-stack}}
+\index{free\-\_\-stack@{free\-\_\-stack}!stack.c@{stack.\-c}}
+\subsubsection[{free\-\_\-stack}]{\setlength{\rightskip}{0pt plus 5cm}void free\-\_\-stack (
+\begin{DoxyParamCaption}
+\item[{struct {\bf stack} $\ast$}]{s}
+\end{DoxyParamCaption}
+)}}\label{stack_8c_ab5ead2093b4871d147ce22ede36de84f}
+Free the stack and all of its data 
+\begin{DoxyParams}{Parameters}
+{\em s} & the pointer to the stack to be freed. \\
+\hline
+\end{DoxyParams}
+\hypertarget{stack_8c_a74694fb01344536f1f39e31cac67d6ad}{\index{stack.\-c@{stack.\-c}!peek@{peek}}
+\index{peek@{peek}!stack.c@{stack.\-c}}
+\subsubsection[{peek}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf element}$\ast$ peek (
+\begin{DoxyParamCaption}
+\item[{struct {\bf stack} $\ast$}]{s}
+\end{DoxyParamCaption}
+)}}\label{stack_8c_a74694fb01344536f1f39e31cac67d6ad}
+Peek\-: Get the top element on the stack without taking it out 
+\begin{DoxyParams}{Parameters}
+{\em s} & the pointer to the stack to peek. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the pointer to the element at the top of the stack. 
+\end{DoxyReturn}
+\hypertarget{stack_8c_a2a99ce490458ccef632cee629920aa6d}{\index{stack.\-c@{stack.\-c}!pop@{pop}}
+\index{pop@{pop}!stack.c@{stack.\-c}}
+\subsubsection[{pop}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf element}$\ast$ pop (
+\begin{DoxyParamCaption}
+\item[{struct {\bf stack} $\ast$}]{s}
+\end{DoxyParamCaption}
+)}}\label{stack_8c_a2a99ce490458ccef632cee629920aa6d}
+Pop\-: Get the top element on the stack and take it out of the stack 
+\begin{DoxyParams}{Parameters}
+{\em s} & the pointer to the stack to pop. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the pointer to the element at the top of the stack. 
+\end{DoxyReturn}
+\hypertarget{stack_8c_a38ccd798635f5e46e8fb4ff83f1ae0e6}{\index{stack.\-c@{stack.\-c}!print\-\_\-stack@{print\-\_\-stack}}
+\index{print\-\_\-stack@{print\-\_\-stack}!stack.c@{stack.\-c}}
+\subsubsection[{print\-\_\-stack}]{\setlength{\rightskip}{0pt plus 5cm}void print\-\_\-stack (
+\begin{DoxyParamCaption}
+\item[{struct {\bf stack} $\ast$}]{s}
+\end{DoxyParamCaption}
+)}}\label{stack_8c_a38ccd798635f5e46e8fb4ff83f1ae0e6}
+Print out all the elements inside the stack. Note\-: This will not take out (pop) any element in the stack 
+\begin{DoxyParams}{Parameters}
+{\em s} & the pointer to the stack to change size. \\
+\hline
+\end{DoxyParams}
+\hypertarget{stack_8c_ac25c7501ee0d028a1a2a8ed08c737750}{\index{stack.\-c@{stack.\-c}!push@{push}}
+\index{push@{push}!stack.c@{stack.\-c}}
+\subsubsection[{push}]{\setlength{\rightskip}{0pt plus 5cm}void push (
+\begin{DoxyParamCaption}
+\item[{struct {\bf stack} $\ast$}]{s, }
+\item[{struct {\bf element} $\ast$}]{e}
+\end{DoxyParamCaption}
+)}}\label{stack_8c_ac25c7501ee0d028a1a2a8ed08c737750}
+Push an element onto the top of the stack 
+\begin{DoxyParams}{Parameters}
+{\em s} & the pointer to the stack to push the element on. \\
+\hline
+{\em e} & the pointer to the element to be pushed on the stack. \\
+\hline
+\end{DoxyParams}
+\hypertarget{stack_8c_a1959e1dd1a8515d62f235ec1537e656a}{\index{stack.\-c@{stack.\-c}!resize@{resize}}
+\index{resize@{resize}!stack.c@{stack.\-c}}
+\subsubsection[{resize}]{\setlength{\rightskip}{0pt plus 5cm}void resize (
+\begin{DoxyParamCaption}
+\item[{struct {\bf stack} $\ast$}]{s, }
+\item[{int}]{new\-\_\-length}
+\end{DoxyParamCaption}
+)}}\label{stack_8c_a1959e1dd1a8515d62f235ec1537e656a}
+Resize the stack to increase its size 
+\begin{DoxyParams}{Parameters}
+{\em s} & the pointer to the stack to change size. \\
+\hline
+{\em new\-\_\-length} & the new size of the stack. \\
+\hline
+\end{DoxyParams}
