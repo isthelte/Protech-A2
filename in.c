@@ -25,7 +25,7 @@ double in_get_var_value(int index){
 }
 
 //This method will evaluate the expression in RPN and return the result
-double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
+double in_eval(char *exp, char invalidVar[], char otherExceptions[]) {
 
     // create a stack based on the length of the expression
     // this is just a guess of the space we are going to need
@@ -76,7 +76,7 @@ double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
 
                 //If there is nothing there, it means the expression is invalid, throw an exception and quit            
                 if (rightEl == NULL){                    
-                    strcpy(*otherExceptions, "The expression is invalid.");                    
+                    strcpy(otherExceptions, "The expression is invalid.");                    
 
                     //free(copy);
                     free_stack(s);
@@ -97,7 +97,7 @@ double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
                     } else {
                         //If it does not exist, terminate the evaluation and send a signal
                         //That the expression is invalid through the char * invalid Var
-                        strcpy(*invalidVar, rightEl->op);
+                        strcpy(invalidVar, rightEl->op);
 
                         //free(copy);
                         free_stack(s);                        
@@ -112,7 +112,7 @@ double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
                 //If there is nothing there, it means the expression is invalid, throw an exception and quit            
                 if (operator_found == NULL){
 
-                    strcpy(*otherExceptions, "The expression is invalid.");
+                    strcpy(otherExceptions, "The expression is invalid.");
 
                     //free(copy);
                     free_stack(s);
@@ -128,7 +128,7 @@ double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
 
                     //If there is nothing there, it means the expression is invalid, throw an exception and quit            
                     if (variable == NULL){                        
-                        strcpy(*otherExceptions, "The expression is invalid.");
+                        strcpy(otherExceptions, "The expression is invalid.");
 
                         //free(copy);
                         free_stack(s);
@@ -145,7 +145,7 @@ double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
                         //If it is a number, there is no way the assignment can be done
                         //For example, 8 = 1 does not make sense at all
                         //Terminate the expression
-                        strcpy(*otherExceptions, "Left side of the '=' sign is not a valid variable");
+                        strcpy(otherExceptions, "Left side of the '=' sign is not a valid variable");
                         return -1;
 
                     } else { // If it is not a number, then there is hope
@@ -161,7 +161,7 @@ double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
                                 //free(copy);
                                 free_stack(s);
 
-                                strcpy(*otherExceptions, "A variable name cannot start with a number");
+                                strcpy(otherExceptions, "A variable name cannot start with a number");
                                 return -1;
                             }
                         }
@@ -191,7 +191,7 @@ double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
 
                     //If there is nothing there, it means the expression is invalid, throw an exception and quit            
                     if (leftEl == NULL){                        
-                        strcpy(*otherExceptions, "The expression is invalid.");
+                        strcpy(otherExceptions, "The expression is invalid.");
 
                         //free(copy);
                         free_stack(s);
@@ -215,9 +215,9 @@ double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
                             //free(copy);
                             free_stack(s);
 
-                            strcpy(*invalidVar, leftEl->op);
+                            strcpy(invalidVar, leftEl->op);
                             //Again, make sure nothing weird happen here
-                            (*invalidVar)[strlen(leftEl->op)] = '\0';
+                            (invalidVar)[strlen(leftEl->op)] = '\0';
                             return -1;
                         }
                     }                    
@@ -234,7 +234,7 @@ double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
                         //free(copy);
                         free_stack(s);
 
-                        strcpy(*otherExceptions, "invalid operator is found");
+                        strcpy(otherExceptions, "invalid operator is found");
                         return -1;
                     } else {
                         value = execute_operation(operator_found, left, right);                        
@@ -268,7 +268,7 @@ double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
     //If there IS, however, it means the expression is invalid
     //Terminate the evaluation and throw an exception
     if (peek(s) != NULL){
-        strcpy(*otherExceptions, "The expression is invalid");
+        strcpy(otherExceptions, "The expression is invalid");
 
         ////free(copy);
         free_stack(s);

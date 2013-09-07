@@ -24,7 +24,7 @@ double rpn_get_var_value(int index){
 }
 
 //This method will evaluate the expression in RPN and return the result
-double rpn_eval(char *exp, char * *invalidVar, char * *otherExceptions) {
+double rpn_eval(char *exp, char invalidVar[], char otherExceptions[]) {
     // create a stack based on the length of the expression
     // this is just a guess of the space we are going to need
     // the stack will automatically increase its size if necessary
@@ -65,7 +65,7 @@ double rpn_eval(char *exp, char * *invalidVar, char * *otherExceptions) {
 
                 //If there is nothing there, it means the expression is invalid, throw an exception and quit            
                 if (rightEl == NULL){
-                    strcpy(*otherExceptions, "The expression is invalid.");
+                    strcpy(otherExceptions, "The expression is invalid.");
 
                     free(copy);
                     free_stack(s);
@@ -89,13 +89,13 @@ double rpn_eval(char *exp, char * *invalidVar, char * *otherExceptions) {
 
                         //If it does not exist, terminate the evaluation an send a signal
                         //That the expression is invalid through the char * invalid Var
-                        strcpy(*invalidVar, rightEl->op);
+                        strcpy(invalidVar, rightEl->op);
 
                         free(copy);
                         free_stack(s);                                    
                         
                         //Again, make sure nothing weird happen here
-                        (*invalidVar)[strlen(rightEl->op)] = '\0';
+                        (invalidVar)[strlen(rightEl->op)] = '\0';
                         return -1;
                     }
                 }
@@ -106,7 +106,7 @@ double rpn_eval(char *exp, char * *invalidVar, char * *otherExceptions) {
 
                 //If there is nothing there, it means the expression is invalid, throw an exception and quit            
                 if (leftEl == NULL){
-                    strcpy(*otherExceptions, "The expression is invalid.");
+                    strcpy(otherExceptions, "The expression is invalid.");
 
                     free(copy);
                     free_stack(s);
@@ -130,7 +130,7 @@ double rpn_eval(char *exp, char * *invalidVar, char * *otherExceptions) {
                     {
                         if (variable[0] == i){
 
-                            strcpy(*otherExceptions, "A variable name cannot start with a number");
+                            strcpy(otherExceptions, "A variable name cannot start with a number");
 
                             free(copy);
                             free_stack(s);
@@ -147,8 +147,8 @@ double rpn_eval(char *exp, char * *invalidVar, char * *otherExceptions) {
                     } else {
 
                         //If it is not there, terminate the operation and throw an error
-                        strcpy(*invalidVar, variable);
-                        (*invalidVar)[strlen(variable)] = '\0';
+                        strcpy(invalidVar, variable);
+                        (invalidVar)[strlen(variable)] = '\0';
 
                         free(copy);
                         free_stack(s);
@@ -161,7 +161,7 @@ double rpn_eval(char *exp, char * *invalidVar, char * *otherExceptions) {
                 //We can only evaluate an expression if the operator is KNOWN
                 if (find_operation(token) == -1){
 
-                    strcpy(*otherExceptions, "invalid operator is found");
+                    strcpy(otherExceptions, "invalid operator is found");
 
                     free(copy);
                     free_stack(s);
@@ -181,7 +181,7 @@ double rpn_eval(char *exp, char * *invalidVar, char * *otherExceptions) {
 
                 //If there is nothing there, it means the expression is invalid, throw an exception and quit            
                 if (rightEl == NULL){
-                    strcpy(*otherExceptions, "The expression is invalid.");
+                    strcpy(otherExceptions, "The expression is invalid.");
 
                     free(copy);
                     free_stack(s);
@@ -203,9 +203,9 @@ double rpn_eval(char *exp, char * *invalidVar, char * *otherExceptions) {
                         //If it does not exist, terminate the evaluation an send a signal
                         //That the expression is invalid through the char * invalid Var
 
-                        strcpy(*invalidVar, rightEl->op);
+                        strcpy(invalidVar, rightEl->op);
                         //Again, make sure nothing weird happen here
-                        (*invalidVar)[strlen(rightEl->op)] = '\0';
+                        (invalidVar)[strlen(rightEl->op)] = '\0';
 
                         free(copy);
                         free_stack(s);                            
@@ -220,7 +220,7 @@ double rpn_eval(char *exp, char * *invalidVar, char * *otherExceptions) {
 
                 //If there is nothing there, it means the expression is invalid, throw an exception and quit            
                 if (leftEl == NULL){
-                    strcpy(*otherExceptions, "The expression is invalid.");
+                    strcpy(otherExceptions, "The expression is invalid.");
 
                     free(copy);
                     free_stack(s);
@@ -232,7 +232,7 @@ double rpn_eval(char *exp, char * *invalidVar, char * *otherExceptions) {
                 //If it is not, try looking for the variable with that name, and assign right to it
                 if (leftEl->type == ELEMENT_NUMBER){
 
-                    strcpy(*otherExceptions, "Left side of the '=' sign is not a valid variable");
+                    strcpy(otherExceptions, "Left side of the '=' sign is not a valid variable");
 
                     free(copy);
                     free_stack(s);
@@ -248,7 +248,7 @@ double rpn_eval(char *exp, char * *invalidVar, char * *otherExceptions) {
                     {
                         if (variable_found[0] == i){
 
-                            strcpy(*otherExceptions, "A variable name cannot start with a number");
+                            strcpy(otherExceptions, "A variable name cannot start with a number");
 
                             free(copy);
                             free_stack(s);
@@ -298,7 +298,7 @@ double rpn_eval(char *exp, char * *invalidVar, char * *otherExceptions) {
     //If there IS, however, it means the expression is invalid
     //Terminate the evaluation and throw an exception
     if (peek(s) != NULL){
-        strcpy(*otherExceptions, "The expression is invalid");
+        strcpy(otherExceptions, "The expression is invalid");
 
         free(copy);
         free_stack(s);

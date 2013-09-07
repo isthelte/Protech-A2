@@ -16,6 +16,7 @@ struct element * create_node_number(double value){
 struct element * create_node_operator(char * value){
     struct element * e = malloc(sizeof(struct element));
     e->type = ELEMENT_OPERATOR;
+
     e->op[0] = value[0];
     if (strlen(value) == 2)
         e->op[1] = value[1];
@@ -25,6 +26,8 @@ struct element * create_node_operator(char * value){
             e->op[i] = value[i];
         }
     }
+
+    //strcpy(e->op, value);
 
     //Make sure nothing "strange" comes after that
     e->op[strlen(value)] = '\0';
@@ -43,6 +46,12 @@ struct stack * create_stack(int length) {
 }
 
 void free_stack(struct stack *s) {        
+
+    //Free the elements
+    /*for (int i = 0; i < s->length - 1; ++i)
+    {
+        free(s->data[i]);
+    }*/
 
     free(s->data);
 

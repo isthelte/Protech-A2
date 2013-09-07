@@ -31,6 +31,6 @@ double rpn_get_var_value(int index);
  * @param ptherExceptions String to notify other error, such as invalid expression.
  * @return the value of the expression.
  */
-double rpn_eval(char *exp, char ** invalidVar, char ** otherExceptions);
+double rpn_eval(char *exp, char invalidVar[], char otherExceptions[]);
 
 #endif

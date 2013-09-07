@@ -31,6 +31,6 @@ double in_get_var_value(int index);
  * @param ptherExceptions String to notify other error, such as invalid expression.
  * @return the value of the expression.
  */
-double in_eval(char *exp, char ** invalidVar, char ** otherExceptions);
+double in_eval(char *exp, char invalidVar[], char otherExceptions[]);
 
 #endif

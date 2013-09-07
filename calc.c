@@ -6,6 +6,8 @@
 #include "rpn.h"
 #include "in.h"
 #include "variables_mapping.h"
+#include "in_exp_rebuilder.h"
+
 #include <stdbool.h>
 #include <string.h>
 
@@ -113,7 +115,7 @@ int main (int argc, char **argv) {
 
                 //Only return the variable value if we can find the variable
                 if (var_ind != -1){
-                    printf("%s = %lf\n", input, in_get_var_value(var_ind));                        
+                    printf("%lf\n", in_get_var_value(var_ind));                        
                 } else { 
                     //If the variable does not exist, print out a meaningful error mes
                     printf("Unrecognized variable name '%s'\n", input );
@@ -122,11 +124,11 @@ int main (int argc, char **argv) {
             } else {
 
                 //Create a char* to show the invalid Variable
-                char * invalidVariable = (malloc(sizeof(char)*50));                
+                char invalidVariable[50];                
                 invalidVariable[0] = '\0';
                             
                 //Create a char* to show the other errors
-                char * otherExceptions = malloc(sizeof(char)*50);
+                char otherExceptions[50];
                 otherExceptions[0] = '\0';
                 //printf("b4: %p\n", invalidVariable );    
 
@@ -135,11 +137,35 @@ int main (int argc, char **argv) {
 
                 if (isRPN){
 
-                    result = rpn_eval(input, &invalidVariable, &otherExceptions);
+                    result = rpn_eval(input, invalidVariable, otherExceptions);
 
                 } else {         
                 
-                    result = in_eval(input, &invalidVariable, &otherExceptions);
+                    //Check if the user is using a full in Expression or not
+                    if (is_Full_Exp(input)){
+                        result = in_eval(input, invalidVariable, otherExceptions);
+                    } else {
+                        //If it is NOT full, it's now time o do the magic
+
+                        //Check first if the input is trying to screw me up or not
+                        //By counting the number of open bracket and close bracket
+                        //The following will only be carried out if they are equal
+                        if (is_Valid_Exp(input)){
+                            char * full_input = rebuild_in_exp(input);
+
+                            //printf("Full input is %s\n", full_input);
+
+                            result = in_eval(full_input, invalidVariable, otherExceptions);
+
+                            //Free the char when we're done
+                            free(full_input);
+                        } else {
+                            //If it is not (they're trying to screw me up)
+                            //throw them an exception
+                            strcpy(otherExceptions, "The number of open bracket and close bracket are not equal");
+                        }
+                        
+                    }                    
 
                 }
 
@@ -159,8 +185,8 @@ int main (int argc, char **argv) {
                 //printf("after: %p\n", invalidVariable );
 
                 //Free the string when we're done
-                free(invalidVariable);                                               
-                free(otherExceptions);
+                //free(invalidVariable);                                              
+                //free(otherExceptions);
             }
 
             

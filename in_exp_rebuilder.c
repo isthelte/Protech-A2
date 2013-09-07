@@ -3,6 +3,35 @@
 #include <string.h>
 #include <stdbool.h>
 
+bool is_Valid_Exp(char * input){
+
+	int open_bracket_counter = 0;
+	int close_bracket_counter = 0;
+
+	for (int i = 0; i < strlen(input); ++i)
+	{
+		//Count the number of open brackets
+		if (input[i] == '('){
+			open_bracket_counter++;
+		}
+
+		if (input[i] == ')'){
+			close_bracket_counter++;
+		}
+
+	}
+
+	//printf("(:%i ,op:%i\n", open_bracket_counter, operator_counter);
+
+	//Return true if the number of '(' is equal to the number of operators
+	if (open_bracket_counter == close_bracket_counter){
+		return true;
+	}
+
+	return false;
+
+}
+
 bool is_Full_Exp(char * input){
 
 	int open_bracket_counter = 0;
@@ -36,6 +65,7 @@ bool is_Full_Exp(char * input){
 			|| input[i] == '*'
 			|| input[i] == '/'
 			|| input[i] == '#'
+			|| input[i] == '='
 			|| input[i] == '_') {
 			operator_counter++;
 		}
@@ -57,20 +87,31 @@ int find_string(char * input, char * toFind, int index_larger_than){
 
 	for (int i = 0; i < strlen(input); ++i)
 	{
-		if (toFind[1] == ','){ //We know we're dealing with 2 operators
+		if (strlen(toFind) == 1){
 
-			//Add this to support 2 operators at the same time!
-			char to_Find_1 = toFind[0];
-			char to_Find_2 = toFind[2];
-
-			if ((input[i] == to_Find_1 || input[i] == to_Find_2) && i >= index_larger_than + 1){
+			if (input[i] == toFind[0] && i >= index_larger_than + 1){
 				return i;
 			}
+
 		} else {
-			if (input[i] == toFind[0] && input[i+1] == toFind[1] && i >= index_larger_than + 2){
-				return i;
+
+			if (toFind[1] == ','){ //We know we're dealing with 2 operators
+
+				//Add this to support 2 operators at the same time!
+				char to_Find_1 = toFind[0];
+				char to_Find_2 = toFind[2];
+
+				if ((input[i] == to_Find_1 || input[i] == to_Find_2) && i >= index_larger_than + 1){
+					return i;
+				}
+			} else {
+				if (input[i] == toFind[0] && input[i+1] == toFind[1] && i >= index_larger_than + 2){
+					return i;
+				}
 			}
+
 		}
+		
 	}
 
 	return -1;
@@ -155,8 +196,7 @@ void insert_char_before_index(char * input, int after_index, char char_to_insert
 
 }
 
-//Ok, this is it, time to shine ....
-bool add_bracket_pairs(char * input, char * operator){
+void add_bracket_pairs(char * input, char * operator){
 	
 	int checkpoint = 0;
 
@@ -164,24 +204,25 @@ bool add_bracket_pairs(char * input, char * operator){
 	{
 		checkpoint = find_string(input, operator, checkpoint);
 
-		printf("get checkpoint: %i \n", checkpoint );
+		//printf("get checkpoint: %i \n", checkpoint );
 
 		if (checkpoint != -1) {
 
-			printf("Found an operator %s at index %i\n", operator, checkpoint);		
+			//printf("Found an operator %s at index %i\n", operator, checkpoint);		
 
 			/*
 			 *Try adding a ')'
 			 */
-			printf("Try adding a ')'\n");
+			//printf("Try adding a ')'\n");
 
-			printf("Old string is: %s\n", input);
+			//printf("Old string is: %s\n", input);
 
-			printf("Old length is: %i\n", strlen(input));
+			//printf("Old length is: %i\n", strlen(input));
 
 			int index_forward = advances_one_token(input, checkpoint);
 
-			printf("We're now at [%i]->%c\n", index_forward, input[index_forward]);			
+			//printf("We're now at [%i]->%c\n", index_forward, input[index_forward]);
+			//printf("The next token would be [%i]->%c\n", advances_one_token(input, index_forward) ,input[advances_one_token(input, index_forward)]);			
 
 			int count_group_exp_forward = 0; //This will count the number of group exp we come across as we go through
 			int go_forward_index = checkpoint; //This will remember the index we're going through
@@ -189,8 +230,10 @@ bool add_bracket_pairs(char * input, char * operator){
 			if (input[index_forward] == '('){ //Uh-oh, we didn't find a number, but another group of exp!
 				count_group_exp_forward++;
 				go_forward_index = advances_one_token(input, go_forward_index);
+			} else if (input[advances_one_token(input, index_forward)] == ')' && advances_one_token(input, index_forward) <= strlen(input) - 1){ //If it has already been done
+				continue; //skip the task
 			} else { //If we didn't, then we're fine
-				go_forward_index = advances_one_token(input, go_forward_index);
+				go_forward_index = advances_one_token(input, go_forward_index);				
 			}
 
 			//We will keep going forward until there is no more group of exp
@@ -224,18 +267,18 @@ bool add_bracket_pairs(char * input, char * operator){
 				insert_char_before_index(input, go_forward_index, ')');				
 			}
 			
-			printf("the input is now %s\n", input);
+			//printf("the input is now %s\n", input);
 
-			printf("New length is: %i\n\n", strlen(input));	
+			//printf("New length is: %i\n\n", strlen(input));	
 
 			/*
 			 *Try adding a '('
 			 */
-			printf("Try adding a '('\n");
+			//printf("Try adding a '('\n");
 
-			printf("Old string is: %s\n", input);
+			//printf("Old string is: %s\n", input);
 
-			printf("Old length is: %i\n", strlen(input));
+			//printf("Old length is: %i\n", strlen(input));
 
 			int index_backward = go_back_one_token(input, checkpoint);
 
@@ -272,9 +315,9 @@ bool add_bracket_pairs(char * input, char * operator){
 
 			insert_char_before_index(input, go_back_index, '(');			
 
-			printf("the input is now %s\n", input);
+			//printf("the input is now %s\n", input);
 
-			printf("New length is: %i\n\n", strlen(input));				
+			//printf("New length is: %i\n\n", strlen(input));				
 
 			checkpoint += 2; //Of course, adding a '(' and a space will 'push' the checkpoint to the right by 2 slots
 
@@ -284,18 +327,43 @@ bool add_bracket_pairs(char * input, char * operator){
 
 }
 
+//Ok, this is it, time to shine ....
+char * rebuild_in_exp(char * input){
 
+	//Make a copy, just ... to be sure
+	char * result = malloc(101);
+	strcpy (result, input); 
 
+	//Add the brackets to the operations in precendence order:
+
+	//Phase 1: **
+	add_bracket_pairs(result, "**");
+	//Phase 2: * and /
+	add_bracket_pairs(result, "*,/");
+	//Phase 3: + and -
+	add_bracket_pairs(result, "+,-");
+	//Phase 4: # and _
+	add_bracket_pairs(result, "#,_");
+	//Phase 5: ||
+	add_bracket_pairs(result, "||");
+	//Phase 6: =
+	add_bracket_pairs(result, "=");
+
+	return result;
+
+}
+
+/*
 int main(){
 	
 	char input[100];
-	strcpy (input, "2.4 + 6.2 * 2.1 / 3.9"); 
+	strcpy (input, "( 2.4 + 6.2 ) * 2.1 / 3.9"); 
 	char input_full[] = "( ( 6 + 3 ) ** 2 )";
 
 	printf("input is %s: %s\n", input, (is_Full_Exp(input)) ? "a full exp" : "not a full exp");	
 	printf("input_full is %s: %s\n", input_full, (is_Full_Exp(input_full)) ? "a full exp" : "not a full exp");
 
-	/*printf("\nLet's start advancing token for input!\n");
+	printf("\nLet's start advancing token for input!\n");
 
 	printf("Start from index 0\n");
 
@@ -327,7 +395,7 @@ int main(){
 
 	 	jump_to_index_2 =  go_back_one_token(input, jump_to_index_2);
 
-	} while (jump_to_index_2 >= 0);*/
+	} while (jump_to_index_2 >= 0);
 
 
 	printf("\n\nStart adding brackets to the input\n");
@@ -343,7 +411,16 @@ int main(){
 	//Phase 5: ||
 	add_bracket_pairs(input, "||");
 
+	printf("Input now is: %s\n", input);
+
 	//free(input);
 
-}
+	char * input = "1 * 2 * 3 * 4 * 5";
+
+	printf("In: %s\n", input);
+
+	char * result = rebuild_in_exp(input);
+
+	printf("Out: %s\n", result);
+}*/
 
