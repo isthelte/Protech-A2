@@ -6,11 +6,6 @@ OBJS = $(patsubst %.c,%.o,$(SOURCES))
 HEADERS = read_exp.h
 EXECS = calc
 
-SOURCES2 = stack.c rpn.c test_rpn.c
-OBJS2 = $(patsubst %.c,%.o,$(SOURCES2))
-HEADERS2 = rpn.h
-EXECS2 = test_rpn
-
 calc: $(OBJS)
 	$(CC) $(CFLAGS) -o calc $(OBJS) -lm
 

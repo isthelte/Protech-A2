@@ -34,12 +34,13 @@ double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
     struct stack *s = create_stack(exp_length/2);
 
     //create necessary values for storing operators and operands
-    char *token, *copy, *operator_found, *variable_found;
+    char *token, /**copy,*/ *operator_found, *variable_found;
     double value, left, right;
 
     // we need to make a copy of the expression to not "destroy" it while
     // we parse it
-    copy = malloc(sizeof(char)*exp_length);
+    //copy = malloc(sizeof(char)*exp_length);
+    char copy[exp_length];
     strcpy(copy, exp);
 
     // tokenise the copy of the expression based on space characters
@@ -77,7 +78,7 @@ double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
                 if (rightEl == NULL){                    
                     strcpy(*otherExceptions, "The expression is invalid.");                    
 
-                    free(copy);
+                    //free(copy);
                     free_stack(s);
 
                     return -1;
@@ -98,7 +99,7 @@ double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
                         //That the expression is invalid through the char * invalid Var
                         strcpy(*invalidVar, rightEl->op);
 
-                        free(copy);
+                        //free(copy);
                         free_stack(s);                        
                                                 
                         return -1;
@@ -113,7 +114,7 @@ double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
 
                     strcpy(*otherExceptions, "The expression is invalid.");
 
-                    free(copy);
+                    //free(copy);
                     free_stack(s);
 
                     return -1;
@@ -129,7 +130,7 @@ double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
                     if (variable == NULL){                        
                         strcpy(*otherExceptions, "The expression is invalid.");
 
-                        free(copy);
+                        //free(copy);
                         free_stack(s);
 
                         return -1;
@@ -138,7 +139,7 @@ double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
                     //We check if this is a variable or a number
                     if (variable->type == ELEMENT_NUMBER){
 
-                        free(copy);
+                        //free(copy);
                         free_stack(s);
 
                         //If it is a number, there is no way the assignment can be done
@@ -157,7 +158,7 @@ double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
                         {
                             if (variable_found[0] == i){
 
-                                free(copy);
+                                //free(copy);
                                 free_stack(s);
 
                                 strcpy(*otherExceptions, "A variable name cannot start with a number");
@@ -192,7 +193,7 @@ double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
                     if (leftEl == NULL){                        
                         strcpy(*otherExceptions, "The expression is invalid.");
 
-                        free(copy);
+                        //free(copy);
                         free_stack(s);
 
                         return -1;
@@ -211,7 +212,7 @@ double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
                         } else {
                             //If it does not exist, terminate the evaluation an send a signal
                             //That the expression is invalid through char * invalidVar
-                            free(copy);
+                            //free(copy);
                             free_stack(s);
 
                             strcpy(*invalidVar, leftEl->op);
@@ -230,7 +231,7 @@ double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
                     
                     //We can only evaluate an expression if the operator is KNOWN
                     if (find_operation(operator_found) == -1){
-                        free(copy);
+                        //free(copy);
                         free_stack(s);
 
                         strcpy(*otherExceptions, "invalid operator is found");
@@ -269,13 +270,13 @@ double in_eval(char *exp, char ** invalidVar, char ** otherExceptions) {
     if (peek(s) != NULL){
         strcpy(*otherExceptions, "The expression is invalid");
 
-        //free(copy);
+        ////free(copy);
         free_stack(s);
 
         return -1;
     }    
 
-    //free(copy); //This keeps giving me trouble so ...
+    //free(copy); //Why free? We' aren't even malloc-ing
     free_stack(s);
 
     return value;
